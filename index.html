@@ -1,0 +1,3834 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultmessages='false' b:layoutsVersion='3' b:responsive='true' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <meta charset='utf-8' />
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' name='viewport' />
+  <title>RR FOLLOWERS - SMM Panel</title>
+  <link href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap' rel='stylesheet' />
+  <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' rel='stylesheet' />
+
+  <!-- Firebase Compat Scripts -->
+  <script src='https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js'></script>
+  <script src='https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js'></script>
+
+  <!-- Blogger Skin Element -->
+  <b:skin><![CDATA[/* RR FOLLOWERS THEME SKIN */]]></b:skin>
+
+  <!-- Complete Stylesheet -->
+  <style type='text/css'>
+  /*<![CDATA[*/
+    #navbar-iframe,
+    iframe#navbar-iframe {
+      display: none !important;
+      visibility: hidden !important;
+      height: 0 !important;
+    }
+
+    body {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-light: #eff6ff;
+      --primary-border: #bfdbfe;
+      --secondary: #64748b;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --bg-main: #f1f5f9;
+      --bg-card: #ffffff;
+      --border-color: #e2e8f0;
+      --success: #10b981;
+      --success-bg: #ecfdf5;
+      --warning: #f59e0b;
+      --warning-bg: #fffbeb;
+      --danger: #ef4444;
+      --danger-bg: #fef2f2;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 12px 24px -4px rgba(37, 99, 235, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.05);
+      
+      --adm-dark-sidebar: #0f172a;
+      --adm-dark-card: #1e293b;
+      --adm-accent: #dc2626;
+      --adm-accent-hover: #b91c1c;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-dark);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* AUTH PAGES */
+    .auth-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px 16px;
+      background: radial-gradient(circle at top right, #3b82f6 0%, #1d4ed8 40%, #1e3a8a 100%);
+    }
+
+    .auth-card {
+      background: var(--bg-card);
+      width: 100%;
+      max-width: 440px;
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .auth-brand {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .auth-brand h1 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .auth-brand p {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-top: 6px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 7px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      color: var(--text-dark);
+      background-color: #ffffff;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      padding: 12px 18px;
+      font-size: 14px;
+      gap: 8px;
+    }
+
+    .btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #ffffff;
+      width: 100%;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-admin {
+      background-color: #ef4444;
+      color: #ffffff;
+      width: 100%;
+    }
+
+    .btn-admin:hover:not(:disabled) {
+      background-color: #dc2626;
+    }
+
+    .btn-google {
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--text-dark);
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    .btn-google:hover:not(:disabled) {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .auth-links {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .auth-links a {
+      color: var(--primary);
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .admin-switch-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--danger);
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .admin-switch-badge:hover {
+      opacity: 0.8;
+    }
+
+    /* USER DASHBOARD LAYOUT */
+    .dashboard-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .sidebar {
+      width: 260px;
+      background-color: #ffffff;
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 50;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .sidebar-brand {
+      padding: 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sidebar-brand h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    .sidebar-menu {
+      list-style: none;
+      padding: 16px 12px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .sidebar-item {
+      margin-bottom: 4px;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .sidebar-link:hover, .sidebar-link.active {
+      background-color: var(--primary-light);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .sidebar-link i {
+      width: 20px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    .main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background-color: var(--bg-main);
+    }
+
+    .topbar {
+      height: 64px;
+      background-color: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: var(--text-dark);
+      cursor: pointer;
+    }
+
+    .balance-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 14px;
+      border: 1px solid var(--primary-border);
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .content-area {
+      padding: 24px;
+      flex: 1;
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    /* ADMIN DASHBOARD LAYOUT */
+    .admin-layout {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+      background-color: #0b1120;
+    }
+
+    .admin-sidebar {
+      width: 270px;
+      background: #0f172a;
+      border-right: 1px solid #1e293b;
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 60;
+    }
+
+    .admin-sidebar-brand {
+      padding: 22px 20px;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #090e1a;
+    }
+
+    .admin-sidebar-brand h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #f87171;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .admin-sidebar-menu {
+      list-style: none;
+      padding: 16px 12px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .admin-sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 4px;
+    }
+
+    .admin-sidebar-link:hover, .admin-sidebar-link.active {
+      background-color: #1e293b;
+      color: #ffffff;
+      border-left: 3px solid #ef4444;
+    }
+
+    .admin-sidebar-link i {
+      width: 20px;
+      text-align: center;
+      font-size: 15px;
+      color: #ef4444;
+    }
+
+    .admin-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background-color: #0b1120;
+    }
+
+    .admin-topbar {
+      height: 64px;
+      background-color: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .admin-topbar-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #f1f5f9;
+      letter-spacing: 0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #f87171;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .admin-logout-btn {
+      background: #ef4444;
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .admin-logout-btn:hover {
+      background: #dc2626;
+    }
+
+    .admin-content {
+      padding: 24px;
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .admin-card {
+      background: #0f172a;
+      border-radius: var(--radius-md);
+      border: 1px solid #1e293b;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+      padding: 24px;
+      margin-bottom: 24px;
+      color: #f8fafc;
+    }
+
+    .admin-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .admin-card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .admin-stat-card {
+      background: #0f172a;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .admin-stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .admin-stat-icon.blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+    .admin-stat-icon.green { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+    .admin-stat-icon.amber { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+    .admin-stat-icon.red { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+    .admin-stat-icon.purple { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+
+    .admin-stat-info h4 {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .admin-stat-info p {
+      font-size: 24px;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-top: 4px;
+    }
+
+    .admin-alert-box {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: var(--radius-sm);
+      padding: 14px 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .admin-table-container {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid #1e293b;
+      border-radius: var(--radius-sm);
+      background: #0f172a;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+      color: #cbd5e1;
+    }
+
+    .admin-table th {
+      background: #090e1a;
+      padding: 12px 16px;
+      font-weight: 700;
+      color: #94a3b8;
+      border-bottom: 1px solid #1e293b;
+      white-space: nowrap;
+    }
+
+    .admin-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #1e293b;
+      color: #e2e8f0;
+      white-space: nowrap;
+    }
+
+    .admin-table tbody tr:hover {
+      background-color: #1e293b;
+    }
+
+    .filter-tab-group {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .filter-tab-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .filter-tab-btn.active {
+      background: #ef4444;
+      color: #ffffff;
+      border-color: #ef4444;
+    }
+
+    /* USER TABLES & BADGES */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .stat-icon.blue { background: var(--primary-light); color: var(--primary); }
+    .stat-icon.green { background: var(--success-bg); color: var(--success); }
+    .stat-icon.amber { background: var(--warning-bg); color: var(--warning); }
+    .stat-icon.red { background: var(--danger-bg); color: var(--danger); }
+
+    .stat-info h4 {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .stat-info p {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-top: 4px;
+    }
+
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+    }
+
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      text-align: left;
+    }
+
+    .custom-table th {
+      background: #f8fafc;
+      padding: 12px 16px;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
+    }
+
+    .custom-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-dark);
+      white-space: nowrap;
+    }
+
+    .custom-table tbody tr:hover {
+      background-color: #f8fafc;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-progress { background: var(--primary-light); color: var(--primary); }
+    .badge-complete { background: var(--success-bg); color: var(--success); }
+    .badge-cancelled { background: var(--danger-bg); color: var(--danger); }
+    .badge-pending { background: var(--warning-bg); color: var(--warning); }
+
+    .qr-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+      border: 2px dashed #cbd5e1;
+      border-radius: var(--radius-md);
+      background: #f8fafc;
+      margin-bottom: 24px;
+    }
+
+    .qr-img {
+      width: 220px;
+      height: 220px;
+      object-fit: contain;
+      background: #ffffff;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* TOAST NOTIFICATIONS */
+    #toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      min-width: 280px;
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      color: #ffffff;
+      font-size: 13.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--shadow-lg);
+      animation: toastSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .toast-success { background-color: var(--success); }
+    .toast-error { background-color: var(--danger); }
+    .toast-info { background-color: var(--primary); }
+
+    @keyframes toastSlide {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @media (max-width: 900px) {
+      .sidebar, .admin-sidebar {
+        position: fixed;
+        left: -270px;
+      }
+      .sidebar.open, .admin-sidebar.open {
+        transform: translateX(270px);
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .content-area, .admin-content {
+        padding: 16px;
+      }
+      .topbar, .admin-topbar {
+        padding: 0 16px;
+      }
+    }
+  /*]]>*/
+  </style>
+</head>
+<body>
+
+  <!-- Mandatory Blogger XML Section -->
+  <div style='display:none;'>
+    <b:section id='main' showaddelement='no'>
+      <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2'/>
+    </b:section>
+  </div>
+
+  <div id='app-container'>
+
+    <!-- ==================== 1. AUTH SECTION ==================== -->
+    <div class='auth-wrapper' id='rr-auth-section'>
+      
+      <!-- User Login -->
+      <div class='auth-card' id='card-login'>
+        <div class='auth-brand'>
+          <h1><i class='fa-solid fa-bolt'></i> RR FOLLOWERS</h1>
+          <p>Login to your user account</p>
+        </div>
+        <form id='form-login' onsubmit='handleEmailLogin(event); return false;'>
+          <div class='form-group'>
+            <label>Email Address</label>
+            <input class='form-control' id='login-email' placeholder='name@example.com' required='required' type='email' />
+          </div>
+          <div class='form-group'>
+            <label>Password</label>
+            <input class='form-control' id='login-password' placeholder='Enter password' required='required' type='password' />
+          </div>
+          <button class='btn btn-primary' id='login-btn' onclick='handleEmailLogin(event)' type='button'>
+            <i class='fa-solid fa-right-to-bracket'></i> Sign In
+          </button>
+          <button class='btn btn-google' id='google-login-btn' onclick='handleGoogleLogin(event)' type='button'>
+            <i class='fa-brands fa-google'></i> Sign in with Google
+          </button>
+        </form>
+        <div class='auth-links'>
+          <p>Forgot your password? <a href='javascript:void(0)' onclick='switchAuthTab(&apos;forgot&apos;)'>Reset here</a></p>
+          <p style='margin-top: 8px;'>Don&#39;t have an account? <a href='javascript:void(0)' onclick='switchAuthTab(&apos;signup&apos;)'>Sign Up</a></p>
+          <div style='margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--border-color);'>
+            <a class='admin-switch-badge' href='javascript:void(0)' onclick='switchAuthTab(&apos;admin&apos;)'>
+              <i class='fa-solid fa-shield-halved'></i> Admin Login
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dedicated Admin Login -->
+      <div class='auth-card hidden' id='card-admin'>
+        <div class='auth-brand'>
+          <h1 style='color: var(--danger);'><i class='fa-solid fa-shield-halved'></i> Admin Login</h1>
+          <p>Authorized Admin Portal Access</p>
+        </div>
+        <form id='form-admin-login' onsubmit='handleAdminLogin(event); return false;'>
+          <div class='form-group'>
+            <label>Admin ID</label>
+            <input autocomplete='off' class='form-control' id='admin-id' placeholder='[ Enter Admin ID ]' required='required' type='text' />
+          </div>
+          <div class='form-group'>
+            <label>Admin Password</label>
+            <input autocomplete='current-password' class='form-control' id='admin-password' placeholder='[ Enter Admin Password ]' required='required' type='password' />
+          </div>
+          <button class='btn btn-admin' id='admin-login-btn' onclick='handleAdminLogin(event)' type='button'>
+            <i class='fa-solid fa-lock'></i> Login as Admin
+          </button>
+        </form>
+        <div class='auth-links' style='margin-top: 20px;'>
+          <p><a href='javascript:void(0)' onclick='switchAuthTab(&apos;login&apos;)'><i class='fa-solid fa-arrow-left'></i> Back to User Login</a></p>
+        </div>
+      </div>
+
+      <!-- Signup -->
+      <div class='auth-card hidden' id='card-signup'>
+        <div class='auth-brand'>
+          <h1><i class='fa-solid fa-bolt'></i> RR FOLLOWERS</h1>
+          <p>Create a new panel account</p>
+        </div>
+        <form id='form-signup' onsubmit='handleEmailSignup(event); return false;'>
+          <div class='form-group'>
+            <label>Full Name</label>
+            <input class='form-control' id='signup-name' placeholder='John Doe' required='required' type='text' />
+          </div>
+          <div class='form-group'>
+            <label>Email Address</label>
+            <input class='form-control' id='signup-email' placeholder='name@example.com' required='required' type='email' />
+          </div>
+          <div class='form-group'>
+            <label>Password</label>
+            <input class='form-control' id='signup-password' placeholder='Minimum 6 characters' required='required' type='password' />
+          </div>
+          <div class='form-group'>
+            <label>Confirm Password</label>
+            <input class='form-control' id='signup-confirm-password' placeholder='Repeat password' required='required' type='password' />
+          </div>
+          <button class='btn btn-primary' id='signup-btn' onclick='handleEmailSignup(event)' type='button'>
+            <i class='fa-solid fa-user-plus'></i> Register
+          </button>
+        </form>
+        <div class='auth-links'>
+          <p>Already have an account? <a href='javascript:void(0)' onclick='switchAuthTab(&apos;login&apos;)'>Sign In</a></p>
+        </div>
+      </div>
+
+      <!-- Forgot Password -->
+      <div class='auth-card hidden' id='card-forgot'>
+        <div class='auth-brand'>
+          <h1><i class='fa-solid fa-bolt'></i> RR FOLLOWERS</h1>
+          <p>Reset your account password</p>
+        </div>
+        <form id='form-forgot' onsubmit='handleForgotPassword(event); return false;'>
+          <div class='form-group'>
+            <label>Registered Email</label>
+            <input class='form-control' id='forgot-email' placeholder='name@example.com' required='required' type='email' />
+          </div>
+          <button class='btn btn-primary' id='btn-forgot' onclick='handleForgotPassword(event)' type='button'>
+            <i class='fa-solid fa-paper-plane'></i> Send Reset Link
+          </button>
+        </form>
+        <div class='auth-links'>
+          <p>Remember password? <a href='javascript:void(0)' onclick='switchAuthTab(&apos;login&apos;)'>Back to Login</a></p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== 2. NORMAL USER DASHBOARD SECTION ==================== -->
+    <div class='dashboard-layout hidden' id='rr-dashboard-section'>
+      
+      <!-- User Sidebar -->
+      <aside class='sidebar' id='sidebar'>
+        <div class='sidebar-brand'>
+          <h2>RR FOLLOWERS</h2>
+        </div>
+        <ul class='sidebar-menu'>
+          <li class='sidebar-item'><a class='sidebar-link active' data-page='page-new-order'><i class='fa-solid fa-cart-plus'></i> New Order</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-mass-order'><i class='fa-solid fa-layer-group'></i> Mass Order</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-orders'><i class='fa-solid fa-list-check'></i> Orders History</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-refill'><i class='fa-solid fa-arrows-rotate'></i> Refill History</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-services'><i class='fa-solid fa-tags'></i> Services</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-add-funds'><i class='fa-solid fa-wallet'></i> Add Funds</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-fund-tracker'><i class='fa-solid fa-chart-line'></i> Fund Tracker</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-fund-history'><i class='fa-solid fa-clock-rotate-left'></i> Fund History</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-api'><i class='fa-solid fa-code'></i> API</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-refer'><i class='fa-solid fa-share-nodes'></i> Refer &amp; Earn</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-ig-tools'><i class='fa-brands fa-instagram'></i> IG Tools</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-child-panels'><i class='fa-solid fa-network-wired'></i> Child Panels</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-news'><i class='fa-solid fa-bullhorn'></i> News</a></li>
+          <li class='sidebar-item'><a class='sidebar-link' data-page='page-help'><i class='fa-solid fa-headset'></i> Help</a></li>
+          <li class='sidebar-item' style='margin-top: 20px;'><a class='sidebar-link' id='btn-logout' style='color:var(--danger);'><i class='fa-solid fa-power-off'></i> Logout</a></li>
+        </ul>
+      </aside>
+
+      <!-- User Main Workspace -->
+      <div class='main-wrapper'>
+        <header class='topbar'>
+          <div class='topbar-left'>
+            <button class='menu-toggle' id='menu-toggle-btn'><i class='fa-solid fa-bars'></i></button>
+            <span id='user-welcome-label' style='font-size: 14px; font-weight: 600;'>Welcome to RR FOLLOWERS</span>
+          </div>
+          <div style='display: flex; align-items: center; gap: 16px;'>
+            <div class='balance-pill'>
+              <i class='fa-solid fa-indian-rupee-sign'></i>
+              <span id='header-balance-val'>0.00</span>
+            </div>
+            <div class='user-profile' id='user-profile-summary'>
+              <i class='fa-solid fa-circle-user' style='font-size: 24px; color: var(--primary);'></i>
+              <span id='header-username-val'>User</span>
+            </div>
+          </div>
+        </header>
+
+        <main class='content-area'>
+
+          <!-- 1. NEW ORDER -->
+          <div class='page-content' id='page-new-order'>
+            <div class='card'>
+              <div class='card-header'>
+                <h3 class='card-title'>Place a New Order</h3>
+              </div>
+              <form id='form-place-order' onsubmit='handleOrderSubmit(event); return false;'>
+                <div class='form-group'>
+                  <label>Category</label>
+                  <select class='form-control' id='order-category-select'>
+                    <option selected='selected' value='Instagram'>Instagram</option>
+                  </select>
+                </div>
+                <div class='form-group'>
+                  <label>Service / Package</label>
+                  <select class='form-control' id='order-service-select'>
+                    <option value=''>[ Select Service ]</option>
+                  </select>
+                </div>
+                <div class='form-group' id='service-details-box' style='background: #f8fafc; padding: 14px; border-radius: 8px; font-size: 13px; border: 1px solid var(--border-color);'>
+                  <p style='margin-bottom: 4px;'><strong>Service Name:</strong> <span id='service-name-text'>--</span></p>
+                  <p style='margin-bottom: 4px;'><strong>Description:</strong> <span id='service-desc-text'>--</span></p>
+                  <p style='margin-bottom: 4px;'><strong>Rate:</strong> &#8377;<span id='service-rate-text'>0.00</span> (<span id='service-rate-unit-text'>Per 1000</span>)</p>
+                  <p><strong>Min:</strong> <span id='service-min-text'>0</span> | <strong>Max:</strong> <span id='service-max-text'>0</span></p>
+                </div>
+                <div class='form-group'>
+                  <label>Target / Link</label>
+                  <input class='form-control' id='order-link' placeholder='https://... target link' required='required' type='text' />
+                </div>
+                <div class='form-group'>
+                  <label>Quantity</label>
+                  <input class='form-control' id='order-quantity' min='1' placeholder='1000' required='required' type='number' />
+                </div>
+                <div class='form-group'>
+                  <label>Calculated Charge (&#8377;)</label>
+                  <input class='form-control' id='order-price-display' readonly='readonly' style='background: #f1f5f9; font-weight: 700; color: var(--primary); font-size: 16px;' value='0.00' />
+                </div>
+                <button class='btn btn-primary' id='btn-submit-order' onclick='handleOrderSubmit(event)' type='button'>
+                  <i class='fa-solid fa-paper-plane'></i> Submit Order
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- 2. MASS ORDER -->
+          <div class='page-content hidden' id='page-mass-order'>
+            <div class='card'>
+              <div class='card-header'>
+                <h3 class='card-title'>Mass Order</h3>
+              </div>
+              <p style='font-size: 13px; color: var(--secondary); margin-bottom: 14px;'>
+                One order per line in format: <code>service_id | link | quantity</code>
+              </p>
+              <form id='form-mass-order' onsubmit='return false;'>
+                <div class='form-group'>
+                  <textarea class='form-control' id='mass-order-input' placeholder='7664 | https://www.instagram.com/reel/xyz | 1000' rows='8'></textarea>
+                </div>
+                <button class='btn btn-primary' id='btn-submit-mass' type='button'>Process Mass Orders</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- 3. ORDERS HISTORY -->
+          <div class='page-content hidden' id='page-orders'>
+            <div class='card'>
+              <div class='card-header'>
+                <h3 class='card-title'>Orders History</h3>
+              </div>
+              <div class='table-container'>
+                <table class='custom-table'>
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Service</th>
+                      <th>Target / Link</th>
+                      <th>Quantity</th>
+                      <th>Charge</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id='orders-table-body'>
+                    <tr><td colspan='7' style='text-align:center;'>Loading orders...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. REFILL HISTORY -->
+          <div class='page-content hidden' id='page-refill'>
+            <div class='card'>
+              <div class='card-header'>
+                <h3 class='card-title'>Refill History</h3>
+              </div>
+              <div class='table-container'>
+                <table class='custom-table'>
+                  <thead>
+                    <tr>
+                      <th>Refill ID</th>
+                      <th>Order ID</th>
+                      <th>Service</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id='refill-table-body'>
+                    <tr><td colspan='5' style='text-align:center;'>No refills requested yet.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. SERVICES LIST -->
+          <div class='page-content hidden' id='page-services'>
+            <div class='card'>
+              <div class='card-header'>
+                <h3 class='card-title'>Available Services</h3>
+              </div>
+              <div class='table-container'>
+                <table class='custom-table'>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Service</th>
+                      <th>Category</th>
+                      <th>Package</th>
+                      <th>Rate</th>
+                      <th>Min</th>
+                      <th>Max</th>
+                      <th>Description</th>
+                    </tr>
+                  </thead>
+                  <tbody id='services-table-body'>
+                    <tr><td colspan='8' style='text-align:center;'>Loading services...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. ADD FUNDS (MINIMUM ₹5) -->
+          <div class='page-content hidden' id='page-add-funds'>
+            <div class='card'>
+              <div class='card-header'>
+                <h3 class='card-title'>Add Funds - Instant QR Deposit</h3>
+              </div>
+              <div class='qr-container'>
+                <h4 style='margin-bottom: 8px;'>RR FOLLOWERS PAYMENT</h4>
+                <img alt='UPI QR Code' class='qr-img' id='display-qr-code' src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&amp;data=upi://pay?pa=9122209963@fam&amp;pn=RR%20FOLLOWERS' />
+                <p style='font-weight: 700; font-size: 15px;'>UPI ID: <span id='display-upi-id' style='color: var(--primary);'>9122209963@fam</span></p>
+                <p style='font-size: 12px; color: var(--secondary); margin-top: 6px;'>Scan via PhonePe, Paytm, Google Pay, or FamPay (Minimum Deposit: ₹5)</p>
+              </div>
+              <form id='form-add-funds' onsubmit='handleDepositSubmit(event); return false;'>
+                <div class='form-group'>
+                  <label>Amount (&#8377; - Min &#8377;5)</label>
+                  <input class='form-control' id='deposit-amount' min='5' placeholder='Enter amount paid (Min ₹5)' required='required' type='number' />
+                </div>
+                <div class='form-group'>
+                  <label>UTR / Transaction ID</label>
+                  <input class='form-control' id='deposit-utr' maxlength='48' placeholder='e.g. FMPIB6538614291' required='required' type='text' />
+                </div>
+                <button class='btn btn-primary' id='btn-submit-deposit' onclick='handleDepositSubmit(event)' type='button'>
+                  <i class='fa-solid fa-check-circle'></i> Submit Deposit Request
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <!-- 7. FUND TRACKER -->
+          <div class='page-content hidden' id='page-fund-tracker'>
+            <div class='stats-grid'>
+              <div class='stat-card'>
+                <div class='stat-icon blue'><i class='fa-solid fa-wallet'></i></div>
+                <div class='stat-info'>
+                  <h4>Current Balance</h4>
+                  <p>&#8377;<span id='tracker-balance'>0.00</span></p>
+                </div>
+              </div>
+              <div class='stat-card'>
+                <div class='stat-icon green'><i class='fa-solid fa-circle-check'></i></div>
+                <div class='stat-info'>
+                  <h4>Approved Deposits</h4>
+                  <p>&#8377;<span id='tracker-approved'>0.00</span></p>
+                </div>
+              </div>
+              <div class='stat-card'>
+                <div class='stat-icon amber'><i class='fa-solid fa-hourglass-half'></i></div>
+                <div class='stat-info'>
+                  <h4>Pending Deposits</h4>
+                  <p>&#8377;<span id='tracker-pending'>0.00</span></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. FUND ADD HISTORY -->
+          <div class='page-content hidden' id='page-fund-history'>
+            <div class='card'>
+              <div class='card-header'>
+                <h3 class='card-title'>Deposit Requests History</h3>
+              </div>
+              <div class='table-container'>
+                <table class='custom-table'>
+                  <thead>
+                    <tr>
+                      <th>Request ID / UTR</th>
+                      <th>Amount</th>
+                      <th>UTR / Transaction ID</th>
+                      <th>Payment Method</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id='deposit-history-body'>
+                    <tr><td colspan='6' style='text-align:center;'>Loading transactions...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. API -->
+          <div class='page-content hidden' id='page-api'>
+            <div class='card'>
+              <div class='card-header'><h3 class='card-title'>RR FOLLOWERS API Documentation</h3></div>
+              <p style='font-size: 13px; margin-bottom: 12px;'>Integrate our SMM services directly into your software.</p>
+              <div class='form-group'>
+                <label>Your Personal API Key</label>
+                <div style='display:flex; gap:10px;'>
+                  <input class='form-control' id='user-api-key-val' readonly='readonly' value='Click Generate to create key' />
+                  <button class='btn btn-primary' id='btn-gen-key' style='width:auto;' type='button'>Generate</button>
+                </div>
+              </div>
+              <div style='background:#f8fafc; padding:14px; border-radius:8px; font-size:13px;'>
+                <p><strong>HTTP Method:</strong> POST</p>
+                <p><strong>Endpoint:</strong> https://us-central1-rs-follower-1474f.cloudfunctions.net/apiV2</p>
+                <p style='margin-top:6px;'><strong>Example Parameter:</strong> <code>key=YOUR_USER_API_KEY&amp;action=services</code></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. REFER & EARN -->
+          <div class='page-content hidden' id='page-refer'>
+            <div class='card'>
+              <div class='card-header'><h3 class='card-title'>Refer &amp; Earn</h3></div>
+              <p style='font-size:14px; margin-bottom: 16px;'>Invite friends to RR FOLLOWERS and earn commission on every deposit they make!</p>
+              <div class='form-group'>
+                <label>Your Referral Link</label>
+                <input class='form-control' id='ref-link-box' readonly='readonly' value='' />
+              </div>
+            </div>
+          </div>
+
+          <!-- 11. IG TOOLS -->
+          <div class='page-content hidden' id='page-ig-tools'>
+            <div class='card'>
+              <div class='card-header'><h3 class='card-title'>Instagram Growth Tools</h3></div>
+              <p style='font-size: 14px; color: var(--secondary);'>Integration not configured. This module will be activated in an upcoming update.</p>
+            </div>
+          </div>
+
+          <!-- 12. CHILD PANELS -->
+          <div class='page-content hidden' id='page-child-panels'>
+            <div class='card'>
+              <div class='card-header'><h3 class='card-title'>Child Panels</h3></div>
+              <p style='font-size: 14px; color: var(--secondary); margin-bottom: 16px;'>Own your very own branded SMM panel linked to RR FOLLOWERS.</p>
+              <div style='background:#eff6ff; padding:16px; border-radius:8px; border:1px solid #bfdbfe;'>
+                <p style='font-size:13px; color:#1e40af;'><strong>Status:</strong> Integration not configured. Contact Admin to configure child panel domain and nameservers.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 13. NEWS -->
+          <div class='page-content hidden' id='page-news'>
+            <div class='card'>
+              <div class='card-header'><h3 class='card-title'>Latest Updates &amp; News</h3></div>
+              <div id='news-container'>
+                <div style='padding: 16px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 12px; background: #fff;'>
+                  <h4 style='color: var(--primary); font-size: 16px;'>&#128640; RR FOLLOWERS &#8212; MAJOR SERVICE UPGRADE</h4>
+                  <p style='color: var(--secondary); font-size: 12px; margin: 4px 0 10px;'>Published on September 05, 2026</p>
+                  <p style='font-size: 14px; color: var(--text-dark);'>RR FOLLOWERS is currently undergoing a major service upgrade. Enjoy lightning fast delivery speeds and ultra-competitive rates across all services!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 14. HELP & SUPPORT -->
+          <div class='page-content hidden' id='page-help'>
+            <div class='card'>
+              <div class='card-header'>
+                <h3 class='card-title'>HELP &amp; SUPPORT</h3>
+              </div>
+              <p style='font-size: 14px; color: var(--secondary); margin-bottom: 24px;'>
+                Need help? Contact our support team via WhatsApp, Telegram, or Email.
+              </p>
+
+              <div class='stats-grid' style='margin-bottom: 0;'>
+                <!-- WhatsApp -->
+                <div class='stat-card' style='flex-direction: column; align-items: flex-start; gap: 14px;'>
+                  <div style='display: flex; align-items: center; gap: 14px; width: 100%;'>
+                    <div class='stat-icon green' style='background: #ecfdf5; color: #10b981; font-size: 24px;'>
+                      <i class='fa-brands fa-whatsapp'></i>
+                    </div>
+                    <div class='stat-info'>
+                      <h4>WhatsApp Support</h4>
+                      <p style='font-size: 18px; margin-top: 4px;'>+91 9122209963</p>
+                    </div>
+                  </div>
+                  <p style='font-size: 13px; color: var(--secondary);'>Fastest response for order issues, payment queries, and refill requests.</p>
+                  <a class='btn' href='https://wa.me/919122209963?text=Hello%20RR%20FOLLOWERS%20Support' rel='noopener noreferrer' style='background-color: #25D366; color: #ffffff; width: 100%; text-decoration: none;' target='_blank'>
+                    <i class='fa-brands fa-whatsapp'></i> Chat on WhatsApp
+                  </a>
+                </div>
+
+                <!-- Telegram -->
+                <div class='stat-card' style='flex-direction: column; align-items: flex-start; gap: 14px;'>
+                  <div style='display: flex; align-items: center; gap: 14px; width: 100%;'>
+                    <div class='stat-icon blue' style='background: #eff6ff; color: #0088cc; font-size: 24px;'>
+                      <i class='fa-brands fa-telegram'></i>
+                    </div>
+                    <div class='stat-info'>
+                      <h4>Telegram Channel</h4>
+                      <p style='font-size: 18px; margin-top: 4px;'>@rrfollower</p>
+                    </div>
+                  </div>
+                  <p style='font-size: 13px; color: var(--secondary);'>Join our official Telegram community for instant service updates and offers.</p>
+                  <a class='btn' href='https://t.me/rrfollower' rel='noopener noreferrer' style='background-color: #0088cc; color: #ffffff; width: 100%; text-decoration: none;' target='_blank'>
+                    <i class='fa-brands fa-telegram'></i> Open Telegram
+                  </a>
+                </div>
+
+                <!-- Email -->
+                <div class='stat-card' style='flex-direction: column; align-items: flex-start; gap: 14px;'>
+                  <div style='display: flex; align-items: center; gap: 14px; width: 100%;'>
+                    <div class='stat-icon blue' style='background: #eff6ff; color: #2563eb; font-size: 24px;'>
+                      <i class='fa-solid fa-envelope'></i>
+                    </div>
+                    <div class='stat-info'>
+                      <h4>Email Support</h4>
+                      <p style='font-size: 15px; margin-top: 4px; word-break: break-all;'>rahulkumar92341239@gmail.com</p>
+                    </div>
+                  </div>
+                  <p style='font-size: 13px; color: var(--secondary);'>For official inquiries, bulk orders, and API integration support.</p>
+                  <a class='btn btn-primary' href='mailto:rahulkumar92341239@gmail.com?subject=RR%20FOLLOWERS%20Support%20Request' style='width: 100%; text-decoration: none;'>
+                    <i class='fa-solid fa-envelope'></i> Email Support
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- ==================== 3. COMPLETELY SEPARATE ADMIN DASHBOARD SECTION ==================== -->
+    <div class='admin-layout hidden' id='rr-admin-section'>
+      
+      <!-- Admin Sidebar -->
+      <aside class='admin-sidebar' id='admin-sidebar'>
+        <div class='admin-sidebar-brand'>
+          <h2><i class='fa-solid fa-shield-halved'></i> ADMIN PANEL</h2>
+        </div>
+        <ul class='admin-sidebar-menu'>
+          <li><a class='admin-sidebar-link active' data-adm-page='adm-page-home'><i class='fa-solid fa-gauge-high'></i> Dashboard</a></li>
+          <li><a class='admin-sidebar-link' data-adm-page='adm-page-users'><i class='fa-solid fa-users'></i> Users</a></li>
+          <li><a class='admin-sidebar-link' data-adm-page='adm-page-orders'><i class='fa-solid fa-cart-shopping'></i> Orders</a></li>
+          <li><a class='admin-sidebar-link' data-adm-page='adm-page-deposits'><i class='fa-solid fa-wallet'></i> Deposits</a></li>
+          <li><a class='admin-sidebar-link' data-adm-page='adm-page-add-service'><i class='fa-solid fa-circle-plus'></i> Add Service</a></li>
+          <li><a class='admin-sidebar-link' data-adm-page='adm-page-services'><i class='fa-solid fa-screwdriver-wrench'></i> Services</a></li>
+          <li><a class='admin-sidebar-link' data-adm-page='adm-page-transactions'><i class='fa-solid fa-receipt'></i> Transactions</a></li>
+          <li><a class='admin-sidebar-link' data-adm-page='adm-page-settings'><i class='fa-solid fa-sliders'></i> Payment Settings</a></li>
+          <li><a class='admin-sidebar-link' data-adm-page='adm-page-support'><i class='fa-solid fa-headset'></i> Support</a></li>
+          <li><a class='admin-sidebar-link' href='https://smmvault.in/order/new' rel='noopener noreferrer' target='_blank'><i class='fa-solid fa-layer-group'></i> SMM Panel</a></li>
+          <li><a class='admin-sidebar-link' href='https://smmflyworld.com/' rel='noopener noreferrer' target='_blank'><i class='fa-solid fa-globe'></i> SMM Fly World</a></li>
+          <li style='margin-top: 24px;'><a class='admin-sidebar-link' id='btn-admin-logout' style='color:#ef4444;'><i class='fa-solid fa-power-off' style='color:#ef4444;'></i> Logout</a></li>
+        </ul>
+      </aside>
+
+      <!-- Admin Main Workspace -->
+      <div class='admin-wrapper'>
+        <header class='admin-topbar'>
+          <div style='display:flex; align-items:center; gap:12px;'>
+            <button class='menu-toggle' id='admin-menu-toggle' style='color:#f8fafc;'><i class='fa-solid fa-bars'></i></button>
+            <div class='admin-topbar-title'>
+              <i class='fa-solid fa-bolt' style='color:#ef4444;'></i> RR FOLLOWERS &#8212; ADMIN PANEL
+            </div>
+          </div>
+          <div style='display:flex; align-items:center; gap:14px;'>
+            <span class='admin-badge-pill'>
+              <i class='fa-solid fa-shield-halved'></i> Administrator
+            </span>
+            <button class='admin-logout-btn' id='btn-admin-topbar-logout'>
+              <i class='fa-solid fa-right-from-bracket'></i> Logout
+            </button>
+          </div>
+        </header>
+
+        <main class='admin-content'>
+
+          <!-- 3.1 ADMIN HOME -->
+          <div class='adm-page-content' id='adm-page-home'>
+            <div class='admin-card' style='margin-bottom:20px; background:linear-gradient(135deg, #1e293b 0%, #0f172a 100%);'>
+              <h2 style='font-size: 20px; font-weight: 800; color: #f8fafc;'>ADMIN DASHBOARD</h2>
+              <p style='color: #94a3b8; font-size: 13.5px; margin-top: 4px;'>Welcome, Administrator</p>
+            </div>
+
+            <div class='admin-stats-grid'>
+              <div class='admin-stat-card'>
+                <div class='admin-stat-icon blue'><i class='fa-solid fa-users'></i></div>
+                <div class='admin-stat-info'><h4>Total Users</h4><p id='adm-stat-users'>0</p></div>
+              </div>
+              <div class='admin-stat-card'>
+                <div class='admin-stat-icon green'><i class='fa-solid fa-cart-shopping'></i></div>
+                <div class='admin-stat-info'><h4>Total Orders</h4><p id='adm-stat-orders'>0</p></div>
+              </div>
+              <div class='admin-stat-card'>
+                <div class='admin-stat-icon red'><i class='fa-solid fa-sack-dollar'></i></div>
+                <div class='admin-stat-info'><h4>Total Revenue</h4><p>&#8377;<span id='adm-stat-rev'>0</span></p></div>
+              </div>
+              <div class='admin-stat-card'>
+                <div class='admin-stat-icon purple'><i class='fa-solid fa-building-columns'></i></div>
+                <div class='admin-stat-info'><h4>Total Deposits</h4><p>&#8377;<span id='adm-stat-deposits-total'>0</span></p></div>
+              </div>
+              <div class='admin-stat-card'>
+                <div class='admin-stat-icon amber'><i class='fa-solid fa-hourglass-half'></i></div>
+                <div class='admin-stat-info'><h4>Pending Deposits</h4><p id='adm-stat-pending-deposits'>0</p></div>
+              </div>
+              <div class='admin-stat-card'>
+                <div class='admin-stat-icon blue'><i class='fa-solid fa-spinner fa-spin'></i></div>
+                <div class='admin-stat-info'><h4>Pending Orders</h4><p id='adm-stat-pending-orders'>0</p></div>
+              </div>
+            </div>
+
+            <div class='admin-card'>
+              <div class='admin-card-header'>
+                <h3 class='admin-card-title'><i class='fa-solid fa-bell' style='color:#f59e0b;'></i> ADMIN NOTIFICATIONS</h3>
+                <span style='font-size:12px; color:#94a3b8;'>Live Feed</span>
+              </div>
+              <div id='adm-alerts-list'>
+                <div style='color:#94a3b8; font-size:13px; text-align:center; padding:16px;'>No pending alerts.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3.2 ADMIN USERS -->
+          <div class='adm-page-content hidden' id='adm-page-users'>
+            <div class='admin-card'>
+              <div class='admin-card-header'>
+                <h3 class='admin-card-title'><i class='fa-solid fa-users'></i> Registered Users</h3>
+              </div>
+              <div class='admin-table-container'>
+                <table class='admin-table'>
+                  <thead>
+                    <tr>
+                      <th>Name</th><th>Email</th><th>Balance</th><th>Total Spent</th><th>Status</th><th>Created Date</th><th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id='adm-users-table-body'>
+                    <tr><td colspan='7' style='text-align:center;'>Loading users...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3.3 ADMIN ORDERS -->
+          <div class='adm-page-content hidden' id='adm-page-orders'>
+            <div class='admin-card'>
+              <div class='admin-card-header'>
+                <h3 class='admin-card-title'><i class='fa-solid fa-cart-shopping'></i> All Orders</h3>
+              </div>
+              <div class='admin-table-container'>
+                <table class='admin-table'>
+                  <thead>
+                    <tr>
+                      <th>Order ID</th><th>User Email</th><th>User ID</th><th>Service</th><th>Target / Link</th><th>Quantity</th><th>Charge</th><th>Status</th><th>Date</th><th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id='adm-orders-table-body'>
+                    <tr><td colspan='10' style='text-align:center;'>Loading orders...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3.4 ADMIN DEPOSITS -->
+          <div class='adm-page-content hidden' id='adm-page-deposits'>
+            <div class='admin-card'>
+              <div class='admin-card-header'>
+                <h3 class='admin-card-title'><i class='fa-solid fa-wallet'></i> Deposit Requests</h3>
+              </div>
+              <div class='filter-tab-group'>
+                <button class='filter-tab-btn active' onclick='filterAdminDeposits(&apos;all&apos;, this)'>All</button>
+                <button class='filter-tab-btn' onclick='filterAdminDeposits(&apos;pending&apos;, this)'>Pending</button>
+                <button class='filter-tab-btn' onclick='filterAdminDeposits(&apos;approved&apos;, this)'>Approved</button>
+                <button class='filter-tab-btn' onclick='filterAdminDeposits(&apos;rejected&apos;, this)'>Rejected</button>
+              </div>
+              <div class='admin-table-container'>
+                <table class='admin-table'>
+                  <thead>
+                    <tr>
+                      <th>Request ID / UTR</th><th>User Email</th><th>Amount</th><th>UTR / Transaction ID</th><th>Payment Method</th><th>Status</th><th>Date</th><th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id='adm-deposits-table-body'>
+                    <tr><td colspan='8' style='text-align:center;'>Loading deposits...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3.5 ADMIN ADD SERVICE -->
+          <div class='adm-page-content hidden' id='adm-page-add-service'>
+            <div class='admin-card'>
+              <div class='admin-card-header'>
+                <h3 class='admin-card-title' id='adm-service-form-title'><i class='fa-solid fa-circle-plus'></i> Add New Service</h3>
+                <button class='btn btn-admin hidden' id='btn-cancel-edit-service' onclick='resetServiceForm()' style='padding:6px 12px; font-size:12px; width:auto;'>Cancel Edit</button>
+              </div>
+              <form id='form-adm-add-service' onsubmit='handleAdminSaveService(event); return false;'>
+                <input id='adm-service-edit-id' type='hidden' value='' />
+                
+                <div class='form-group'>
+                  <label style='color:#e2e8f0;'>Category</label>
+                  <select class='form-control' id='adm-service-category-select' onchange='handleAdminCategoryChange()' style='background:#1e293b; color:#ffffff; border-color:#334155;'>
+                    <option value='Instagram'>Instagram</option>
+                    <option value='Facebook'>Facebook</option>
+                    <option value='YouTube'>YouTube</option>
+                    <option value='Custom Category'>Custom Category</option>
+                  </select>
+                </div>
+
+                <div class='form-group hidden' id='adm-custom-category-group'>
+                  <label style='color:#e2e8f0;'>Custom Category Name</label>
+                  <input class='form-control' id='adm-service-custom-category' placeholder='e.g. TikTok, Telegram, Twitter' style='background:#1e293b; color:#ffffff; border-color:#334155;' type='text' />
+                </div>
+
+                <div class='form-group'>
+                  <label style='color:#e2e8f0;'>Package</label>
+                  <select class='form-control' id='adm-service-package-select' onchange='handleAdminPackageChange()' style='background:#1e293b; color:#ffffff; border-color:#334155;'>
+                    <option value='Followers'>Followers</option>
+                    <option value='Likes'>Likes</option>
+                    <option value='Views'>Views</option>
+                    <option value='Comments'>Comments</option>
+                    <option value='Custom Package'>Custom Package</option>
+                  </select>
+                </div>
+
+                <div class='form-group hidden' id='adm-custom-package-group'>
+                  <label style='color:#e2e8f0;'>Custom Package Name</label>
+                  <input class='form-control' id='adm-service-custom-package' placeholder='e.g. Shares, Saves, Profile Visits' style='background:#1e293b; color:#ffffff; border-color:#334155;' type='text' />
+                </div>
+
+                <div class='form-group'>
+                  <label style='color:#e2e8f0;'>Service Name</label>
+                  <input class='form-control' id='adm-service-name' placeholder='e.g. Instagram Followers Non-Drop' required='required' style='background:#1e293b; color:#ffffff; border-color:#334155;' type='text' />
+                </div>
+
+                <div class='form-group'>
+                  <label style='color:#e2e8f0;'>Description</label>
+                  <textarea class='form-control' id='adm-service-desc' placeholder='High quality fast delivery service description' required='required' rows='3' style='background:#1e293b; color:#ffffff; border-color:#334155;'></textarea>
+                </div>
+
+                <div class='form-group'>
+                  <label style='color:#e2e8f0;'>Rate (&#8377;)</label>
+                  <input class='form-control' id='adm-service-rate' min='0.01' placeholder='100' required='required' step='0.01' style='background:#1e293b; color:#ffffff; border-color:#334155;' type='number' />
+                </div>
+
+                <div class='form-group'>
+                  <label style='color:#e2e8f0; margin-bottom:8px;'>Rate Unit</label>
+                  <div style='display:flex; gap:20px; align-items:center;'>
+                    <label style='display:inline-flex; align-items:center; gap:6px; color:#cbd5e1; cursor:pointer;'>
+                      <input checked='checked' id='adm-rate-unit-1000' name='adm-rate-unit' type='radio' value='per1000' /> Per 1000
+                    </label>
+                    <label style='display:inline-flex; align-items:center; gap:6px; color:#cbd5e1; cursor:pointer;'>
+                      <input id='adm-rate-unit-100' name='adm-rate-unit' type='radio' value='per100' /> Per 100
+                    </label>
+                  </div>
+                </div>
+
+                <div style='display:grid; grid-template-columns:1fr 1fr; gap:16px;'>
+                  <div class='form-group'>
+                    <label style='color:#e2e8f0;'>Minimum Quantity</label>
+                    <input class='form-control' id='adm-service-min' min='1' placeholder='100' required='required' style='background:#1e293b; color:#ffffff; border-color:#334155;' type='number' />
+                  </div>
+                  <div class='form-group'>
+                    <label style='color:#e2e8f0;'>Maximum Quantity</label>
+                    <input class='form-control' id='adm-service-max' min='2' placeholder='100000' required='required' style='background:#1e293b; color:#ffffff; border-color:#334155;' type='number' />
+                  </div>
+                </div>
+
+                <div class='form-group'>
+                  <label style='color:#e2e8f0;'>Status</label>
+                  <select class='form-control' id='adm-service-active' style='background:#1e293b; color:#ffffff; border-color:#334155;'>
+                    <option selected='selected' value='true'>Active</option>
+                    <option value='false'>Inactive</option>
+                  </select>
+                </div>
+
+                <button class='btn btn-admin' id='btn-save-service' style='width:auto;' type='submit'>
+                  <i class='fa-solid fa-floppy-disk'></i> Save Service
+                </button>
+              </form>
+            </div>
+
+            <!-- Service Management Table -->
+            <div class='admin-card'>
+              <div class='admin-card-header'>
+                <h3 class='admin-card-title'><i class='fa-solid fa-list-check'></i> Manage Services</h3>
+              </div>
+              <div class='admin-table-container'>
+                <table class='admin-table'>
+                  <thead>
+                    <tr>
+                      <th>ID</th><th>Name</th><th>Category</th><th>Package</th><th>Rate</th><th>Unit</th><th>Min</th><th>Max</th><th>Status</th><th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id='adm-manage-services-tbody'>
+                    <tr><td colspan='10' style='text-align:center;'>Loading services...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3.6 ADMIN SERVICES OVERVIEW -->
+          <div class='adm-page-content hidden' id='adm-page-services'>
+            <div class='admin-card'>
+              <div class='admin-card-header'>
+                <h3 class='admin-card-title'><i class='fa-solid fa-screwdriver-wrench'></i> Services Overview</h3>
+              </div>
+              <div class='admin-table-container'>
+                <table class='admin-table'>
+                  <thead>
+                    <tr>
+                      <th>ID</th><th>Service Name</th><th>Category</th><th>Package</th><th>Rate</th><th>Min</th><th>Max</th><th>Description</th><th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id='adm-all-services-overview-tbody'>
+                    <tr><td colspan='9' style='text-align:center;'>Loading services...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3.7 ADMIN TRANSACTIONS -->
+          <div class='adm-page-content hidden' id='adm-page-transactions'>
+            <div class='admin-card'>
+              <div class='admin-card-header'>
+                <h3 class='admin-card-title'><i class='fa-solid fa-receipt'></i> Transactions History</h3>
+              </div>
+              <div class='admin-table-container'>
+                <table class='admin-table'>
+                  <thead>
+                    <tr>
+                      <th>Transaction ID</th><th>User</th><th>Type</th><th>Amount</th><th>Status</th><th>Reference / UTR</th><th>Date</th>
+                    </tr>
+                  </thead>
+                  <tbody id='adm-transactions-table-body'>
+                    <tr><td colspan='7' style='text-align:center;'>Loading transactions...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3.8 ADMIN PAYMENT SETTINGS -->
+          <div class='admin-card adm-page-content hidden' id='adm-page-settings'>
+            <div class='admin-card-header'>
+              <h3 class='admin-card-title'><i class='fa-solid fa-sliders'></i> Payment Settings</h3>
+            </div>
+            <form id='form-adm-settings-real' onsubmit='return false;'>
+              <div class='form-group'>
+                <label style='color:#e2e8f0;'>UPI ID</label>
+                <input class='form-control' id='adm-settings-upi' style='background:#1e293b; color:#ffffff; border-color:#334155;' value='9122209963@fam' />
+              </div>
+              <div class='form-group'>
+                <label style='color:#e2e8f0;'>QR Code Image URL</label>
+                <input class='form-control' id='adm-settings-qr' style='background:#1e293b; color:#ffffff; border-color:#334155;' value='https://api.qrserver.com/v1/create-qr-code/?size=250x250&amp;data=upi://pay?pa=9122209963@fam&amp;pn=RR%20FOLLOWERS' />
+              </div>
+              <button class='btn btn-admin' id='btn-adm-save-settings' style='width:auto;' type='button'>
+                <i class='fa-solid fa-floppy-disk'></i> Save Settings
+              </button>
+            </form>
+          </div>
+
+          <!-- 3.9 ADMIN SUPPORT -->
+          <div class='admin-card adm-page-content hidden' id='adm-page-support'>
+            <div class='admin-card-header'>
+              <h3 class='admin-card-title'><i class='fa-solid fa-headset'></i> Support Channels</h3>
+            </div>
+            <div style='font-size:14px; line-height:2.0; color:#cbd5e1;'>
+              <p><strong>WhatsApp Support:</strong> +91 9122209963 (<a href='https://wa.me/919122209963' style='color:#34d399; text-decoration:underline;' target='_blank'>Open WhatsApp</a>)</p>
+              <p><strong>Telegram Support:</strong> @rrfollower (<a href='https://t.me/rrfollower' style='color:#60a5fa; text-decoration:underline;' target='_blank'>Open Telegram</a>)</p>
+              <p><strong>Official Email:</strong> rahulkumar92341239@gmail.com (<a href='mailto:rahulkumar92341239@gmail.com' style='color:#60a5fa; text-decoration:underline;'>Send Email</a>)</p>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- Global Toast Viewport -->
+    <div id='toast-container'></div>
+
+  </div>
+
+  <!-- Application Logic Wrapped in XML CDATA -->
+  <script type='text/javascript'>
+  //<![CDATA[
+    /* ========================================================
+       FIREBASE CONFIGURATION
+    ======================================================== */
+    const firebaseConfig = {
+      apiKey: "AIzaSyBt6OeYdm5VXxzrfjDEG_92uRjBfnI54f8",
+      authDomain: "rs-follower-1474f.firebaseapp.com",
+      projectId: "rs-follower-1474f",
+      storageBucket: "rs-follower-1474f.firebasestorage.app",
+      messagingSenderId: "551359514134",
+      appId: "1:551359514134:web:ebd1e92764b04f7b63d737",
+      measurementId: "G-BRCKYNVMLX"
+    };
+
+    var auth = null;
+    var db = null;
+
+    function initFirebase() {
+      try {
+        if (typeof firebase !== 'undefined') {
+          if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+          }
+          auth = firebase.auth();
+          db = firebase.firestore();
+          return true;
+        }
+      } catch (err) {
+        console.error("Firebase Init Error:", err);
+      }
+      return false;
+    }
+
+    initFirebase();
+
+    // Internal mapping credentials for Admin ID "RSFOLLOWERS"
+    const ADMIN_ID = "RSFOLLOWERS";
+    const ADMIN_INTERNAL_EMAIL = "rahulkumar92341239@gmail.com";
+
+    // Application State
+    let currentUser = null;
+    let currentUserDoc = null;
+    let isAdmin = false;
+    let cachedAdminDeposits = [];
+    let cachedAdminOrders = [];
+    let currentDepositFilter = "all";
+    let userDepositsUnsub = null;
+    let userOrdersUnsub = null;
+    let userProfileUnsub = null;
+    let adminDepositsUnsub = null;
+    let adminOrdersUnsub = null;
+    let adminUsersUnsub = null;
+    let adminTxUnsub = null;
+    let servicesUnsub = null;
+    let newsUnsub = null;
+    let paymentSettingsUnsub = null;
+
+    // BASE DEFAULT SERVICES (Preserved: ₹100 per 1000 Followers)
+    const baseDefaultServices = [
+      {
+        id: "7664",
+        name: "Instagram Reel Views",
+        category: "Instagram",
+        package: "Views",
+        price: 0.25,
+        pricePerK: 0.25,
+        rateUnit: "per1000",
+        min: 100,
+        max: 10000000,
+        desc: "10Million/Daily | Super Fast Speed | Instant",
+        active: true,
+        enabled: true
+      },
+      {
+        id: "7665",
+        name: "Instagram Followers",
+        category: "Instagram",
+        package: "Followers",
+        price: 100.0,
+        pricePerK: 100.0,
+        rateUnit: "per1000",
+        min: 50,
+        max: 50000,
+        desc: "Instant Start | Non Drop 30 Days Refill | Real Looking",
+        active: true,
+        enabled: true
+      },
+      {
+        id: "7666",
+        name: "Instagram Likes",
+        category: "Instagram",
+        package: "Likes",
+        price: 12.0,
+        pricePerK: 12.0,
+        rateUnit: "per1000",
+        min: 50,
+        max: 100000,
+        desc: "High Speed | Real Accounts | Non Drop Guarantee",
+        active: true,
+        enabled: true
+      }
+    ];
+
+    let activeServices = [...baseDefaultServices];
+
+    /* ========================================================
+       UI UTILITIES & GLOBAL TAB SWITCHING
+    ======================================================== */
+    function showToast(message, type) {
+      type = type || "info";
+      const container = document.getElementById("toast-container");
+      if (!container) return;
+      const toast = document.createElement("div");
+      toast.className = "toast toast-" + type;
+      toast.innerHTML = "<span>" + message + "</span>";
+      container.appendChild(toast);
+      setTimeout(function() { toast.remove(); }, 4500);
+    }
+
+    window.switchAuthTab = function(tabName) {
+      const cards = document.querySelectorAll(".auth-card");
+      for (let i = 0; i < cards.length; i++) {
+        cards[i].classList.add("hidden");
+      }
+      const target = document.getElementById("card-" + tabName);
+      if (target) {
+        target.classList.remove("hidden");
+      }
+    };
+
+    function switchDashboardPage(pageId) {
+      const pages = document.querySelectorAll(".page-content");
+      for (let i = 0; i < pages.length; i++) {
+        pages[i].classList.add("hidden");
+      }
+      const links = document.querySelectorAll(".sidebar-link");
+      for (let i = 0; i < links.length; i++) {
+        links[i].classList.remove("active");
+      }
+      
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) targetPage.classList.remove("hidden");
+
+      const activeLink = document.querySelector('.sidebar-link[data-page="' + pageId + '"]');
+      if (activeLink) activeLink.classList.add("active");
+
+      if (pageId === "page-new-order" || pageId === "page-services") {
+        populateServices();
+      }
+
+      if (window.innerWidth <= 900) {
+        const sb = document.getElementById("sidebar");
+        if (sb) sb.classList.remove("open");
+      }
+    }
+
+    window.switchAdminPage = function(admPageId) {
+      if (!isAdmin) {
+        showToast("Access Denied: Admin authorization required.", "error");
+        return;
+      }
+      const pages = document.querySelectorAll(".adm-page-content");
+      for (let i = 0; i < pages.length; i++) {
+        pages[i].classList.add("hidden");
+      }
+      const links = document.querySelectorAll(".admin-sidebar-link");
+      for (let i = 0; i < links.length; i++) {
+        links[i].classList.remove("active");
+      }
+
+      const target = document.getElementById(admPageId);
+      if (target) target.classList.remove("hidden");
+
+      const activeLink = document.querySelector('.admin-sidebar-link[data-adm-page="' + admPageId + '"]');
+      if (activeLink) activeLink.classList.add("active");
+
+      if (admPageId === "adm-page-add-service" || admPageId === "adm-page-services") {
+        renderAdminServicesTable();
+      }
+
+      if (window.innerWidth <= 900) {
+        const sb = document.getElementById("admin-sidebar");
+        if (sb) sb.classList.remove("open");
+      }
+    };
+
+    function parseAuthError(err) {
+      if (!err || !err.code) return (err && err.message) ? err.message : "An error occurred. Please try again.";
+      switch(err.code) {
+        case "auth/user-not-found":
+        case "auth/wrong-password":
+        case "auth/invalid-credential":
+        case "auth/invalid-login-credentials":
+          return "Invalid email or password.";
+        case "auth/email-already-in-use":
+          return "This email is already registered. Please login.";
+        case "auth/invalid-email":
+          return "Please enter a valid email address.";
+        case "auth/weak-password":
+          return "Password must be at least 6 characters.";
+        case "auth/popup-closed-by-user":
+          return "Google sign-in popup was closed.";
+        case "auth/popup-blocked":
+          return "Popup blocked by browser. Please enable popups.";
+        case "auth/network-request-failed":
+          return "Network error. Please check your internet connection.";
+        default:
+          return err.message;
+      }
+    }
+
+    /* ========================================================
+       AUTH HANDLERS: USER & DEDICATED ADMIN
+    ======================================================== */
+    window.handleEmailLogin = async function(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (!auth) initFirebase();
+      if (!auth) return showToast("Firebase loading, please try in a moment...", "info");
+
+      const emailEl = document.getElementById("login-email");
+      const passEl = document.getElementById("login-password");
+      if (!emailEl || !passEl) return;
+
+      const email = emailEl.value.trim();
+      const pass = passEl.value;
+
+      if (!email || !pass) return showToast("Please enter email and password.", "error");
+
+      const btn = document.getElementById("login-btn");
+      const prevHtml = btn ? btn.innerHTML : "";
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Signing In...";
+      }
+
+      try {
+        const cred = await auth.signInWithEmailAndPassword(email, pass);
+        if (db && cred.user) {
+          const uDoc = await db.collection("users").doc(cred.user.uid).get();
+          if (uDoc.exists) {
+            const uData = uDoc.data();
+            if (uData.status === "blocked" || uData.status === "deactivated" || uData.authorized === false) {
+              await auth.signOut();
+              showToast("Access Restricted: Your account is blocked or unauthorized.", "error");
+              return;
+            }
+          }
+        }
+        showToast("Signed in successfully!", "success");
+      } catch (err) {
+        showToast(parseAuthError(err), "error");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = prevHtml;
+        }
+      }
+    };
+
+    window.handleAdminLogin = async function(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (!auth) initFirebase();
+      if (!auth) return showToast("Firebase loading, please try in a moment...", "info");
+
+      const idEl = document.getElementById("admin-id");
+      const passEl = document.getElementById("admin-password");
+      if (!idEl || !passEl) return;
+
+      const adminId = idEl.value.trim();
+      const enteredAdminPassword = passEl.value;
+
+      if (!adminId || adminId.toUpperCase() !== ADMIN_ID || !enteredAdminPassword) {
+        return showToast("Invalid Admin ID or Password.", "error");
+      }
+
+      const btn = document.getElementById("admin-login-btn");
+      const prevHtml = btn ? btn.innerHTML : "";
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Authenticating Admin...";
+      }
+
+      try {
+        let cred = null;
+        try {
+          cred = await auth.signInWithEmailAndPassword(ADMIN_INTERNAL_EMAIL, enteredAdminPassword);
+        } catch (signInErr) {
+          if (signInErr.code === "auth/user-not-found") {
+            try {
+              cred = await auth.createUserWithEmailAndPassword(ADMIN_INTERNAL_EMAIL, enteredAdminPassword);
+            } catch (createErr) {
+              throw signInErr;
+            }
+          } else {
+            throw signInErr;
+          }
+        }
+
+        const user = cred ? cred.user : auth.currentUser;
+        if (user && db) {
+          await db.collection("users").doc(user.uid).set({
+            uid: user.uid,
+            name: "Admin",
+            email: ADMIN_INTERNAL_EMAIL,
+            role: "admin",
+            authorized: true,
+            status: "active",
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+        }
+
+        isAdmin = true;
+
+        const authSec = document.getElementById("rr-auth-section");
+        const dashSec = document.getElementById("rr-dashboard-section");
+        const admSec = document.getElementById("rr-admin-section");
+
+        if (authSec) authSec.classList.add("hidden");
+        if (dashSec) dashSec.classList.add("hidden");
+        if (admSec) admSec.classList.remove("hidden");
+
+        initAdminPanel();
+        switchAdminPage("adm-page-home");
+        showToast("Welcome Administrator! Admin Portal loaded.", "success");
+      } catch (err) {
+        showToast(parseAuthError(err), "error");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = prevHtml;
+        }
+      }
+    };
+
+    window.handleGoogleLogin = async function(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (!auth) initFirebase();
+      if (!auth) return;
+
+      const btn = document.getElementById("google-login-btn");
+      const prevHtml = btn ? btn.innerHTML : "";
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Connecting...";
+      }
+
+      try {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
+        await auth.signInWithPopup(provider);
+        const user = auth.currentUser;
+        
+        if (user && db) {
+          const userRef = db.collection("users").doc(user.uid);
+          const docSnap = await userRef.get();
+          if (!docSnap.exists) {
+            await userRef.set({
+              uid: user.uid,
+              name: user.displayName || "Google User",
+              email: user.email || "",
+              balance: 0,
+              totalSpent: 0,
+              status: "active",
+              role: "user",
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+          }
+        }
+        showToast("Google sign-in successful!", "success");
+      } catch (err) {
+        showToast(parseAuthError(err), "error");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = prevHtml;
+        }
+      }
+    };
+
+    window.handleEmailSignup = async function(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (!auth) initFirebase();
+      if (!auth) return;
+
+      const nameEl = document.getElementById("signup-name");
+      const emailEl = document.getElementById("signup-email");
+      const passEl = document.getElementById("signup-password");
+      const confirmPassEl = document.getElementById("signup-confirm-password");
+
+      const name = nameEl ? nameEl.value.trim() : "";
+      const email = emailEl ? emailEl.value.trim() : "";
+      const pass = passEl ? passEl.value : "";
+      const confirmPass = confirmPassEl ? confirmPassEl.value : "";
+
+      if (!name) return showToast("Full name is required.", "error");
+      if (!email) return showToast("Valid email is required.", "error");
+      if (!pass || pass.length < 6) return showToast("Password must be at least 6 characters.", "error");
+      if (pass !== confirmPass) return showToast("Passwords do not match.", "error");
+
+      const btn = document.getElementById("signup-btn");
+      const prevHtml = btn ? btn.innerHTML : "";
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Registering...";
+      }
+
+      try {
+        const cred = await auth.createUserWithEmailAndPassword(email, pass);
+        const user = cred.user;
+
+        if (user && user.updateProfile) {
+          await user.updateProfile({ displayName: name });
+        }
+        
+        if (db) {
+          await db.collection("users").doc(user.uid).set({
+            uid: user.uid,
+            name: name,
+            email: email,
+            balance: 0,
+            totalSpent: 0,
+            status: "active",
+            role: "user",
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        }
+
+        showToast("Account created successfully!", "success");
+      } catch (err) {
+        showToast(parseAuthError(err), "error");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = prevHtml;
+        }
+      }
+    };
+
+    window.handleForgotPassword = async function(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (!auth) initFirebase();
+      if (!auth) return;
+
+      const emailEl = document.getElementById("forgot-email");
+      const email = emailEl ? emailEl.value.trim() : "";
+      if (!email) return showToast("Please enter your registered email.", "error");
+
+      try {
+        await auth.sendPasswordResetEmail(email);
+        showToast("Password reset link sent to your email!", "success");
+        window.switchAuthTab("login");
+      } catch (err) {
+        showToast(parseAuthError(err), "error");
+      }
+    };
+
+    /* ========================================================
+       AUTH OBSERVER & ROUTING ENGINE
+    ======================================================== */
+    function attachAuthObserver() {
+      if (!auth) return;
+      auth.onAuthStateChanged(async function(user) {
+        const authSec = document.getElementById("rr-auth-section");
+        const dashSec = document.getElementById("rr-dashboard-section");
+        const admSec = document.getElementById("rr-admin-section");
+
+        if (user) {
+          currentUser = user;
+
+          let isUserAdmin = false;
+          // Verify via internal admin email and Firestore users/{uid}.role == "admin"
+          if (user.email && user.email.toLowerCase() === ADMIN_INTERNAL_EMAIL.toLowerCase()) {
+            isUserAdmin = true;
+          }
+
+          if (db) {
+            try {
+              const uDocSnap = await db.collection("users").doc(user.uid).get();
+              if (uDocSnap.exists) {
+                const uData = uDocSnap.data();
+                if (uData.role === "admin") {
+                  isUserAdmin = true;
+                }
+              }
+            } catch (roleErr) {
+              console.error("Role lookup error:", roleErr);
+            }
+          }
+
+          isAdmin = isUserAdmin;
+          if (authSec) authSec.classList.add("hidden");
+
+          listenToServices();
+          listenToNews();
+
+          if (isAdmin) {
+            if (db) {
+              await db.collection("users").doc(user.uid).set({
+                uid: user.uid,
+                name: "Admin",
+                email: ADMIN_INTERNAL_EMAIL,
+                role: "admin",
+                authorized: true,
+                status: "active",
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+              }, { merge: true });
+            }
+
+            if (dashSec) dashSec.classList.add("hidden");
+            if (admSec) admSec.classList.remove("hidden");
+            initAdminPanel();
+            switchAdminPage("adm-page-home");
+          } else {
+            if (admSec) admSec.classList.add("hidden");
+            if (dashSec) dashSec.classList.remove("hidden");
+            populateServices();
+            listenToUserProfile(user.uid);
+            listenToUserOrders(user.uid);
+            listenToUserDeposits(user.uid);
+            listenToPaymentSettings();
+            switchDashboardPage("page-new-order");
+
+            const refBox = document.getElementById("ref-link-box");
+            if (refBox) refBox.value = window.location.origin + "?ref=" + user.uid;
+          }
+        } else {
+          currentUser = null;
+          currentUserDoc = null;
+          isAdmin = false;
+          if (userProfileUnsub) { userProfileUnsub(); userProfileUnsub = null; }
+          if (userDepositsUnsub) { userDepositsUnsub(); userDepositsUnsub = null; }
+          if (userOrdersUnsub) { userOrdersUnsub(); userOrdersUnsub = null; }
+          if (adminDepositsUnsub) { adminDepositsUnsub(); adminDepositsUnsub = null; }
+          if (adminOrdersUnsub) { adminOrdersUnsub(); adminOrdersUnsub = null; }
+          if (adminUsersUnsub) { adminUsersUnsub(); adminUsersUnsub = null; }
+          if (adminTxUnsub) { adminTxUnsub(); adminTxUnsub = null; }
+          if (servicesUnsub) { servicesUnsub(); servicesUnsub = null; }
+          if (newsUnsub) { newsUnsub(); newsUnsub = null; }
+          if (paymentSettingsUnsub) { paymentSettingsUnsub(); paymentSettingsUnsub = null; }
+
+          if (dashSec) dashSec.classList.add("hidden");
+          if (admSec) admSec.classList.add("hidden");
+          if (authSec) authSec.classList.remove("hidden");
+        }
+      });
+    }
+
+    function listenToUserProfile(uid) {
+      if (!db) return;
+      if (userProfileUnsub) userProfileUnsub();
+
+      userProfileUnsub = db.collection("users").doc(uid).onSnapshot(function(doc) {
+        if (doc.exists) {
+          currentUserDoc = doc.data();
+          if (!isAdmin && (currentUserDoc.status === "blocked" || currentUserDoc.status === "deactivated" || currentUserDoc.authorized === false)) {
+            auth.signOut();
+            showToast("Access Restricted: Your account is blocked.", "error");
+            return;
+          }
+          const balance = Number(currentUserDoc.balance || 0).toFixed(2);
+          const elBal = document.getElementById("header-balance-val");
+          const elName = document.getElementById("header-username-val");
+          const elTrk = document.getElementById("tracker-balance");
+          if (elBal) elBal.innerText = balance;
+          if (elName) elName.innerText = currentUserDoc.name || "User";
+          if (elTrk) elTrk.innerText = balance;
+          if (currentUserDoc.apiKey) {
+            const elKey = document.getElementById("user-api-key-val");
+            if (elKey) elKey.value = currentUserDoc.apiKey;
+          }
+        }
+      }, function(err) {
+        console.error("User profile snapshot error:", err);
+      });
+    }
+
+    /* ========================================================
+       SERVICES REALTIME LISTENER & POPULATION ENGINE
+    ======================================================== */
+    function listenToServices() {
+      if (!db) return;
+      if (servicesUnsub) servicesUnsub();
+
+      servicesUnsub = db.collection("services").onSnapshot(function(snapshot) {
+        const firestoreServices = [];
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          firestoreServices.push({
+            id: doc.id,
+            name: data.name || "Unnamed Service",
+            category: data.category || "Instagram",
+            package: data.package || "General",
+            desc: data.description || data.desc || "",
+            price: Number(data.price != null ? data.price : (data.pricePerK != null ? data.pricePerK : 0)),
+            pricePerK: Number(data.pricePerK != null ? data.pricePerK : (data.price != null ? data.price : 0)),
+            rateUnit: data.rateUnit || "per1000",
+            min: Number(data.min || 1),
+            max: Number(data.max || 100000),
+            active: data.active !== false,
+            enabled: data.active !== false,
+            createdAt: data.createdAt
+          });
+        });
+
+        const merged = [...baseDefaultServices];
+        firestoreServices.forEach(fs => {
+          const existingIdx = merged.findIndex(m => m.id === fs.id);
+          if (existingIdx >= 0) {
+            merged[existingIdx] = fs;
+          } else {
+            merged.push(fs);
+          }
+        });
+
+        activeServices = merged;
+        populateServices();
+        if (isAdmin) {
+          renderAdminServicesTable();
+        }
+      }, function(err) {
+        console.error("SERVICE LOAD ERROR:", err ? err.code : "UNKNOWN", err ? err.message : err);
+      });
+    }
+
+    function populateServices() {
+      const catSelect = document.getElementById("order-category-select");
+      const svcSelect = document.getElementById("order-service-select");
+      const tbody = document.getElementById("services-table-body");
+
+      const availableCategories = [];
+      activeServices.forEach(s => {
+        if (s.active !== false && s.enabled !== false) {
+          const c = s.category || "Instagram";
+          if (!availableCategories.some(cat => cat.toLowerCase() === c.toLowerCase())) {
+            availableCategories.push(c);
+          }
+        }
+      });
+
+      if (!availableCategories.length) {
+        availableCategories.push("Instagram");
+      }
+
+      if (catSelect) {
+        const currentCat = catSelect.value || availableCategories[0];
+        catSelect.innerHTML = "";
+        availableCategories.forEach(cat => {
+          const opt = document.createElement("option");
+          opt.value = cat;
+          opt.textContent = cat;
+          if (cat.toLowerCase() === currentCat.toLowerCase()) {
+            opt.selected = true;
+          }
+          catSelect.appendChild(opt);
+        });
+      }
+
+      const selectedCategory = catSelect ? catSelect.value : (availableCategories[0] || "Instagram");
+
+      if (svcSelect) {
+        const prevVal = svcSelect.value;
+        svcSelect.innerHTML = "<option value=''>[ Select Service ]</option>";
+
+        activeServices.forEach(s => {
+          if (s.active !== false && s.enabled !== false) {
+            if ((s.category || "").toLowerCase() === selectedCategory.toLowerCase()) {
+              const opt = document.createElement("option");
+              opt.value = s.id;
+              const unitLabel = s.rateUnit === "per100" ? "Per 100" : "Per 1000";
+              opt.textContent = s.name + " - ₹" + Number(s.price || s.pricePerK || 0).toFixed(2) + " (" + unitLabel + ")";
+              svcSelect.appendChild(opt);
+            }
+          }
+        });
+
+        if (prevVal && svcSelect.querySelector("option[value='" + prevVal + "']")) {
+          svcSelect.value = prevVal;
+        } else if (svcSelect.options.length > 1) {
+          svcSelect.selectedIndex = 1;
+        }
+      }
+
+      if (tbody) {
+        tbody.innerHTML = "";
+        let count = 0;
+        activeServices.forEach(s => {
+          if (s.active !== false && s.enabled !== false) {
+            count++;
+            const row = document.createElement("tr");
+            const unitLabel = s.rateUnit === "per100" ? "Per 100" : "Per 1000";
+            row.innerHTML = "<td><strong>" + s.id + "</strong></td>" +
+                            "<td>" + s.name + "</td>" +
+                            "<td>" + (s.category || "Instagram") + "</td>" +
+                            "<td>" + (s.package || "--") + "</td>" +
+                            "<td>₹" + Number(s.price || s.pricePerK || 0).toFixed(2) + " (" + unitLabel + ")</td>" +
+                            "<td>" + s.min + "</td>" +
+                            "<td>" + s.max + "</td>" +
+                            "<td>" + (s.desc || "--") + "</td>";
+            tbody.appendChild(row);
+          }
+        });
+        if (count === 0) {
+          tbody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>No active services available right now.</td></tr>";
+        }
+      }
+
+      updateOrderPricing();
+    }
+
+    function updateOrderPricing() {
+      const select = document.getElementById("order-service-select");
+      const nameEl = document.getElementById("service-name-text");
+      const descEl = document.getElementById("service-desc-text");
+      const rateEl = document.getElementById("service-rate-text");
+      const unitEl = document.getElementById("service-rate-unit-text");
+      const minEl = document.getElementById("service-min-text");
+      const maxEl = document.getElementById("service-max-text");
+      const priceEl = document.getElementById("order-price-display");
+
+      if (!select || !select.value) {
+        if (nameEl) nameEl.innerText = "--";
+        if (descEl) descEl.innerText = "--";
+        if (rateEl) rateEl.innerText = "0.00";
+        if (unitEl) unitEl.innerText = "Per 1000";
+        if (minEl) minEl.innerText = "0";
+        if (maxEl) maxEl.innerText = "0";
+        if (priceEl) priceEl.value = "0.00";
+        return;
+      }
+
+      const sId = select.value;
+      const s = activeServices.find(item => String(item.id) === String(sId));
+      if (!s) return;
+
+      const rateVal = Number(s.price != null ? s.price : (s.pricePerK != null ? s.pricePerK : 0));
+      const rateUnit = s.rateUnit || "per1000";
+
+      if (nameEl) nameEl.innerText = s.name;
+      if (descEl) descEl.innerText = s.desc || "--";
+      if (rateEl) rateEl.innerText = rateVal.toFixed(2);
+      if (unitEl) unitEl.innerText = rateUnit === "per100" ? "Per 100" : "Per 1000";
+      if (minEl) minEl.innerText = s.min;
+      if (maxEl) maxEl.innerText = s.max;
+
+      const qtyEl = document.getElementById("order-quantity");
+      const qty = parseInt(qtyEl ? qtyEl.value : "0") || 0;
+
+      let total = 0;
+      if (rateUnit === "per100") {
+        total = (qty / 100) * rateVal;
+      } else {
+        total = (qty / 1000) * rateVal;
+      }
+
+      if (priceEl) priceEl.value = total.toFixed(2);
+    }
+
+    /* ========================================================
+       NEWS REALTIME LISTENER FOR USER DASHBOARD
+    ======================================================== */
+    function listenToNews() {
+      if (!db) return;
+      if (newsUnsub) newsUnsub();
+
+      newsUnsub = db.collection("news").orderBy("createdAt", "desc").onSnapshot(function(snapshot) {
+        const container = document.getElementById("news-container");
+        if (!container) return;
+
+        let newsHtml = "";
+
+        snapshot.forEach(doc => {
+          const item = doc.data();
+          const dateStr = item.createdAt ? (item.createdAt.toDate ? new Date(item.createdAt.toDate()).toLocaleDateString() : new Date(item.createdAt).toLocaleDateString()) : "Recent";
+          newsHtml += "<div style='padding: 16px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 12px; background: #fff;'>" +
+                        "<h4 style='color: var(--primary); font-size: 16px;'><i class='fa-solid fa-bullhorn'></i> " + (item.title || "Announcement") + "</h4>" +
+                        "<p style='color: var(--secondary); font-size: 12px; margin: 4px 0 10px;'>Published on " + dateStr + "</p>" +
+                        "<p style='font-size: 14px; color: var(--text-dark);'>" + (item.message || "") + "</p>" +
+                      "</div>";
+        });
+
+        const baseNews = "<div style='padding: 16px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 12px; background: #fff;'>" +
+                           "<h4 style='color: var(--primary); font-size: 16px;'>&#128640; RR FOLLOWERS &#8212; MAJOR SERVICE UPGRADE</h4>" +
+                           "<p style='color: var(--secondary); font-size: 12px; margin: 4px 0 10px;'>Published on September 05, 2026</p>" +
+                           "<p style='font-size: 14px; color: var(--text-dark);'>RR FOLLOWERS is currently undergoing a major service upgrade. Enjoy lightning fast delivery speeds and ultra-competitive rates across all services!</p>" +
+                         "</div>";
+
+        container.innerHTML = newsHtml ? (newsHtml + baseNews) : baseNews;
+      }, function(err) {
+        console.error("NEWS LOAD ERROR:", err ? err.code : "UNKNOWN", err ? err.message : err);
+      });
+    }
+
+    /* ========================================================
+       ATOMIC ORDER + BALANCE DEDUCTION ENGINE
+    ======================================================== */
+    window.handleOrderSubmit = async function(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (e && e.stopPropagation) e.stopPropagation();
+
+      if (!auth) initFirebase();
+      const user = (auth && auth.currentUser) ? auth.currentUser : (firebase.auth ? firebase.auth().currentUser : null);
+      if (!user) {
+        return showToast("Please login first.", "error");
+      }
+
+      const selectEl = document.getElementById("order-service-select");
+      const sId = selectEl ? selectEl.value : "";
+      if (!sId) return showToast("Please select a valid service.", "error");
+
+      const srv = activeServices.find(s => String(s.id) === String(sId));
+      if (!srv || srv.active === false || srv.enabled === false) {
+        return showToast("Selected service is unavailable.", "error");
+      }
+
+      const linkEl = document.getElementById("order-link");
+      const qtyEl = document.getElementById("order-quantity");
+      const link = linkEl ? linkEl.value.trim() : "";
+      const quantity = parseInt(qtyEl ? qtyEl.value : "0") || 0;
+
+      if (!link) return showToast("Please input a valid target link.", "error");
+      if (quantity < srv.min || quantity > srv.max) {
+        return showToast("Quantity must be between " + srv.min + " and " + srv.max + ".", "error");
+      }
+
+      const rateVal = Number(srv.price != null ? srv.price : (srv.pricePerK != null ? srv.pricePerK : 0));
+      const rateUnit = srv.rateUnit || "per1000";
+
+      let rawCharge = 0;
+      if (rateUnit === "per100") {
+        rawCharge = (quantity / 100) * rateVal;
+      } else {
+        rawCharge = (quantity / 1000) * rateVal;
+      }
+      const orderPrice = Number(rawCharge.toFixed(2));
+
+      const btn = document.getElementById("btn-submit-order");
+      const prevHtml = btn ? btn.innerHTML : "";
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Processing Order...";
+      }
+
+      try {
+        const userRef = db.collection("users").doc(user.uid);
+        const orderRef = db.collection("orders").doc();
+
+        await db.runTransaction(async (transaction) => {
+          const userDoc = await transaction.get(userRef);
+          if (!userDoc.exists) {
+            throw new Error("User profile not found. Please log in again.");
+          }
+
+          const userData = userDoc.data();
+          const currentBalance = Number(userData.balance || 0);
+
+          if (currentBalance < orderPrice) {
+            throw new Error("Insufficient balance. Please add funds.");
+          }
+
+          const newBalance = Number((currentBalance - orderPrice).toFixed(2));
+          const newTotalSpent = Number(((Number(userData.totalSpent || 0)) + orderPrice).toFixed(2));
+
+          // 1. Deduct exact balance and update totalSpent
+          transaction.update(userRef, {
+            balance: newBalance,
+            totalSpent: newTotalSpent,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+
+          // 2. Create order document in 'orders' collection
+          transaction.set(orderRef, {
+            orderId: orderRef.id,
+            userId: user.uid,
+            userEmail: user.email || "",
+            serviceId: srv.id,
+            serviceName: srv.name,
+            category: srv.category || "Instagram",
+            package: srv.package || "General",
+            rateUnit: rateUnit,
+            link: link,
+            quantity: Number(quantity),
+            price: Number(orderPrice),
+            charge: Number(orderPrice),
+            status: "pending",
+            refundProcessed: false,
+            providerOrderId: "MANUAL_OR_QUEUED",
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        });
+
+        showToast("Order placed successfully.", "success");
+        if (linkEl) linkEl.value = "";
+        if (qtyEl) qtyEl.value = "";
+        updateOrderPricing();
+        switchDashboardPage("page-orders");
+      } catch (err) {
+        console.error("ORDER CREATE ERROR:", err ? err.code : "unknown", err ? err.message : err);
+        if (err && (err.code === "permission-denied" || (err.message && err.message.toLowerCase().includes("permission")))) {
+          showToast("Order permission denied. Please verify your balance and login session.", "error");
+        } else {
+          showToast(err.message || "Error placing order. Please try again.", "error");
+        }
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = prevHtml;
+        }
+      }
+    };
+    window.handlePlaceOrder = window.handleOrderSubmit;
+
+    function listenToUserOrders(uid) {
+      if (!db) return;
+      if (userOrdersUnsub) {
+        userOrdersUnsub();
+      }
+
+      userOrdersUnsub = db.collection("orders")
+        .where("userId", "==", uid)
+        .onSnapshot(function(snapshot) {
+          const tbody = document.getElementById("orders-table-body");
+          if (!tbody) return;
+          tbody.innerHTML = "";
+          if (snapshot.empty) {
+            tbody.innerHTML = "<tr><td colspan='7' style='text-align:center;'>No orders placed yet.</td></tr>";
+            return;
+          }
+          const docs = [];
+          snapshot.forEach(doc => docs.push({ id: doc.id, ...doc.data() }));
+          docs.sort((a, b) => {
+            const tA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt).getTime()) : Date.now();
+            const tB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt).getTime()) : Date.now();
+            return tB - tA;
+          });
+
+          docs.forEach(function(data) {
+            const dateStr = data.createdAt ? (data.createdAt.toDate ? new Date(data.createdAt.toDate()).toLocaleDateString() : new Date(data.createdAt).toLocaleDateString()) : "--";
+            let badgeClass = "badge-pending";
+            const stLower = (data.status || "pending").toLowerCase();
+            if (stLower === "completed" || stLower === "complete") badgeClass = "badge-complete";
+            if (stLower === "processing" || stLower === "in progress") badgeClass = "badge-progress";
+            if (stLower === "cancelled" || stLower === "cancel") badgeClass = "badge-cancelled";
+
+            const row = document.createElement("tr");
+            row.innerHTML = "<td>#" + data.id.substring(0, 8) + "</td>" +
+                            "<td>" + (data.serviceName || data.serviceId) + "</td>" +
+                            "<td><a href='" + data.link + "' target='_blank' style='color:var(--primary); text-decoration: underline;'>View Link</a></td>" +
+                            "<td>" + data.quantity + "</td>" +
+                            "<td>₹" + Number(data.charge != null ? data.charge : (data.price || 0)).toFixed(2) + "</td>" +
+                            "<td><span class='badge " + badgeClass + "'>" + (data.status || "PENDING").toUpperCase() + "</span></td>" +
+                            "<td>" + dateStr + "</td>";
+            tbody.appendChild(row);
+          });
+        }, function(err) {
+          console.error("User orders listener error:", err.code, err.message);
+          const tbody = document.getElementById("orders-table-body");
+          if (tbody) {
+            tbody.innerHTML = "<tr><td colspan='7' style='text-align:center; color:#ef4444;'>Unable to load orders. Please login again.</td></tr>";
+          }
+        });
+    }
+
+    /* ========================================================
+       ADD FUNDS / DEPOSIT ENGINE (EXACT FIRESTORE DOC ID = UTR)
+    ======================================================== */
+    window.handleDepositSubmit = async function(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (e && e.stopPropagation) e.stopPropagation();
+
+      if (!auth) initFirebase();
+      const user = auth ? auth.currentUser : currentUser;
+      if (!user || !db) {
+        return showToast("Please login first.", "error");
+      }
+
+      const amtInput = document.getElementById("deposit-amount");
+      const utrInput = document.getElementById("deposit-utr");
+      if (!amtInput || !utrInput) return;
+
+      const amount = Number(amtInput.value);
+      if (!Number.isFinite(amount) || amount < 5) {
+        return showToast("Minimum Add Funds amount is ₹5.", "error");
+      }
+
+      const normalizedUTR = utrInput.value.trim().replace(/\s+/g, '').toUpperCase();
+      if (!normalizedUTR) {
+        return showToast("Please enter UTR / Transaction ID.", "error");
+      }
+
+      const btn = document.getElementById("btn-submit-deposit");
+      const prevHtml = btn ? btn.innerHTML : "";
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Submitting...";
+      }
+
+      try {
+        const depositRef = db.collection("depositRequests").doc(normalizedUTR);
+
+        let exists = false;
+        try {
+          const docSnap = await depositRef.get();
+          if (docSnap.exists) {
+            exists = true;
+          }
+        } catch (getErr) {
+          // Handled by rules
+        }
+
+        if (exists) {
+          showToast("No Data Found — This UTR / Transaction ID has already been submitted.", "error");
+          return;
+        }
+
+        await depositRef.set({
+          userId: user.uid,
+          userEmail: user.email || "",
+          amount: Number(amount),
+          utr: normalizedUTR,
+          transactionId: normalizedUTR,
+          paymentMethod: "UPI QR",
+          status: "pending",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        showToast("Payment request submitted successfully. Your payment is pending admin approval.", "success");
+
+        amtInput.value = "";
+        utrInput.value = "";
+        switchDashboardPage("page-fund-history");
+      } catch (err) {
+        console.error("Deposit Submission Error:", err);
+        if (err && (err.code === "permission-denied" || (err.message && err.message.toLowerCase().includes("permission")))) {
+          showToast("No Data Found — This UTR / Transaction ID has already been submitted.", "error");
+        } else {
+          showToast(err.message || "Error submitting payment request.", "error");
+        }
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = prevHtml;
+        }
+      }
+    };
+
+    function listenToUserDeposits(uid) {
+      if (!db) return;
+      if (userDepositsUnsub) {
+        userDepositsUnsub();
+      }
+
+      userDepositsUnsub = db.collection("depositRequests")
+        .where("userId", "==", uid)
+        .onSnapshot(function(snapshot) {
+          const tbody = document.getElementById("deposit-history-body");
+          if (!tbody) return;
+          tbody.innerHTML = "";
+          let totalApproved = 0;
+          let totalPending = 0;
+
+          if (snapshot.empty) {
+            tbody.innerHTML = "<tr><td colspan='6' style='text-align:center;'>No transactions found.</td></tr>";
+            const elApp = document.getElementById("tracker-approved");
+            const elPen = document.getElementById("tracker-pending");
+            if (elApp) elApp.innerText = "0.00";
+            if (elPen) elPen.innerText = "0.00";
+            return;
+          }
+
+          const docs = [];
+          snapshot.forEach(doc => {
+            docs.push({ id: doc.id, ...doc.data() });
+          });
+
+          docs.sort((a, b) => {
+            const tA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt).getTime()) : Date.now();
+            const tB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt).getTime()) : Date.now();
+            return tB - tA;
+          });
+
+          docs.forEach(function(data) {
+            const dateStr = data.createdAt ? (data.createdAt.toDate ? new Date(data.createdAt.toDate()).toLocaleDateString() : new Date(data.createdAt).toLocaleDateString()) : "Just now";
+            const amt = Number(data.amount || 0);
+
+            if (data.status === "approved") totalApproved += amt;
+            if (data.status === "pending") totalPending += amt;
+
+            let badgeClass = "badge-pending";
+            let statusText = "🟡 PENDING";
+            if (data.status === "approved") {
+              badgeClass = "badge-complete";
+              statusText = "🟢 APPROVED";
+            } else if (data.status === "rejected") {
+              badgeClass = "badge-cancelled";
+              statusText = "🔴 REJECTED";
+            }
+
+            const row = document.createElement("tr");
+            row.innerHTML = "<td>#" + data.id.substring(0, 14) + "</td>" +
+                            "<td>₹" + amt.toFixed(2) + "</td>" +
+                            "<td><code>" + (data.utr || data.transactionId || data.id) + "</code></td>" +
+                            "<td>" + (data.paymentMethod || "UPI QR") + "</td>" +
+                            "<td><span class='badge " + badgeClass + "'>" + statusText + "</span></td>" +
+                            "<td>" + dateStr + "</td>";
+            tbody.appendChild(row);
+          });
+
+          const elApp = document.getElementById("tracker-approved");
+          const elPen = document.getElementById("tracker-pending");
+          if (elApp) elApp.innerText = totalApproved.toFixed(2);
+          if (elPen) elPen.innerText = totalPending.toFixed(2);
+        }, function(err) {
+          console.error("User deposits listener error:", err.code, err.message);
+          const tbody = document.getElementById("deposit-history-body");
+          if (tbody) {
+            tbody.innerHTML = "<tr><td colspan='6' style='text-align:center; color:#ef4444;'>Unable to load payment requests. Please login again.</td></tr>";
+          }
+        });
+    }
+
+    function listenToPaymentSettings() {
+      if (!db) return;
+      if (paymentSettingsUnsub) paymentSettingsUnsub();
+
+      paymentSettingsUnsub = db.collection("paymentSettings").doc("config").onSnapshot(function(doc) {
+        if (doc.exists) {
+          const cfg = doc.data();
+          if (cfg.upiId) {
+            const dUpi = document.getElementById("display-upi-id");
+            const aUpi = document.getElementById("adm-settings-upi");
+            if (dUpi) dUpi.innerText = cfg.upiId;
+            if (aUpi) aUpi.value = cfg.upiId;
+          }
+          if (cfg.qrUrl) {
+            const dQr = document.getElementById("display-qr-code");
+            const aQr = document.getElementById("adm-settings-qr");
+            if (dQr) dQr.src = cfg.qrUrl;
+            if (aQr) aQr.value = cfg.qrUrl;
+          }
+        }
+      });
+    }
+
+    /* ========================================================
+       ADMIN ADD & MANAGE SERVICE ENGINE
+    ======================================================== */
+    const defaultPackagePresets = {
+      "Instagram": ["Followers", "Likes", "Views", "Comments"],
+      "Facebook": ["Followers", "Likes", "Views", "Comments"],
+      "YouTube": ["Subscribers", "Likes", "Views", "Comments"]
+    };
+
+    window.handleAdminCategoryChange = function() {
+      const catSelect = document.getElementById("adm-service-category-select");
+      const customCatGroup = document.getElementById("adm-custom-category-group");
+      const pkgSelect = document.getElementById("adm-service-package-select");
+
+      const catVal = catSelect ? catSelect.value : "";
+      if (catVal === "Custom Category") {
+        if (customCatGroup) customCatGroup.classList.remove("hidden");
+      } else {
+        if (customCatGroup) customCatGroup.classList.add("hidden");
+      }
+
+      if (pkgSelect) {
+        const presets = defaultPackagePresets[catVal] || ["Followers", "Likes", "Views", "Comments"];
+        pkgSelect.innerHTML = "";
+        presets.forEach(p => {
+          const opt = document.createElement("option");
+          opt.value = p;
+          opt.textContent = p;
+          pkgSelect.appendChild(opt);
+        });
+        const customOpt = document.createElement("option");
+        customOpt.value = "Custom Package";
+        customOpt.textContent = "Custom Package";
+        pkgSelect.appendChild(customOpt);
+      }
+      handleAdminPackageChange();
+    };
+
+    window.handleAdminPackageChange = function() {
+      const pkgSelect = document.getElementById("adm-service-package-select");
+      const customPkgGroup = document.getElementById("adm-custom-package-group");
+      const pkgVal = pkgSelect ? pkgSelect.value : "";
+
+      if (pkgVal === "Custom Package") {
+        if (customPkgGroup) customPkgGroup.classList.remove("hidden");
+      } else {
+        if (customPkgGroup) customPkgGroup.classList.add("hidden");
+      }
+    };
+
+    window.handleAdminSaveService = async function(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (!isAdmin || !db) return showToast("Unauthorized action.", "error");
+
+      const editIdEl = document.getElementById("adm-service-edit-id");
+      const editId = editIdEl ? editIdEl.value.trim() : "";
+
+      const catSelect = document.getElementById("adm-service-category-select");
+      const customCatEl = document.getElementById("adm-service-custom-category");
+      let category = catSelect ? catSelect.value : "";
+      if (category === "Custom Category") {
+        category = customCatEl ? customCatEl.value.trim() : "";
+        if (!category) return showToast("Please enter a custom category name.", "error");
+      }
+      if (!category) return showToast("Category is required.", "error");
+
+      const pkgSelect = document.getElementById("adm-service-package-select");
+      const customPkgEl = document.getElementById("adm-service-custom-package");
+      let servicePackage = pkgSelect ? pkgSelect.value : "";
+      if (servicePackage === "Custom Package") {
+        servicePackage = customPkgEl ? customPkgEl.value.trim() : "";
+        if (!servicePackage) return showToast("Please enter a custom package name.", "error");
+      }
+      if (!servicePackage) return showToast("Package is required.", "error");
+
+      const nameEl = document.getElementById("adm-service-name");
+      const descEl = document.getElementById("adm-service-desc");
+      const rateEl = document.getElementById("adm-service-rate");
+      const minEl = document.getElementById("adm-service-min");
+      const maxEl = document.getElementById("adm-service-max");
+      const activeEl = document.getElementById("adm-service-active");
+
+      const serviceName = nameEl ? nameEl.value.trim() : "";
+      const description = descEl ? descEl.value.trim() : "";
+      const rate = Number(rateEl ? rateEl.value : 0);
+      const min = Number(minEl ? minEl.value : 0);
+      const max = Number(maxEl ? maxEl.value : 0);
+      const isActive = activeEl ? (activeEl.value === "true") : true;
+
+      const rateUnitRadios = document.getElementsByName("adm-rate-unit");
+      let rateUnit = "per1000";
+      for (let i = 0; i < rateUnitRadios.length; i++) {
+        if (rateUnitRadios[i].checked) {
+          rateUnit = rateUnitRadios[i].value;
+          break;
+        }
+      }
+
+      // Validations
+      if (!serviceName) return showToast("Service name is required.", "error");
+      if (!description) return showToast("Description is required.", "error");
+      if (!Number.isFinite(rate) || rate <= 0) return showToast("Rate must be greater than 0.", "error");
+      if (!Number.isFinite(min) || min <= 0) return showToast("Minimum quantity must be greater than 0.", "error");
+      if (!Number.isFinite(max) || max <= min) return showToast("Maximum quantity must be greater than minimum quantity.", "error");
+
+      // Duplicate Check (for new service only)
+      if (!editId) {
+        const isDuplicate = activeServices.some(s => 
+          (s.category || "").toLowerCase() === category.toLowerCase() &&
+          (s.package || "").toLowerCase() === servicePackage.toLowerCase() &&
+          (s.name || "").toLowerCase() === serviceName.toLowerCase()
+        );
+        if (isDuplicate) {
+          return showToast("Service already exists.", "error");
+        }
+      }
+
+      const btn = document.getElementById("btn-save-service");
+      const prevHtml = btn ? btn.innerHTML : "";
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = "<i class='fa-solid fa-spinner fa-spin'></i> Saving Service...";
+      }
+
+      const serviceDocData = {
+        name: serviceName,
+        category: category,
+        package: servicePackage,
+        description: description,
+        desc: description,
+        price: Number(rate),
+        pricePerK: Number(rate),
+        rateUnit: rateUnit,
+        min: Number(min),
+        max: Number(max),
+        active: isActive,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      try {
+        let finalServiceId = editId;
+        if (editId) {
+          await db.collection("services").doc(editId).update(serviceDocData);
+          showToast("Service updated successfully!", "success");
+        } else {
+          const docRef = db.collection("services").doc();
+          finalServiceId = docRef.id;
+          serviceDocData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+          await docRef.set(serviceDocData);
+          showToast("Service added successfully!", "success");
+
+          // Post News Announcement for newly added service
+          try {
+            await db.collection("news").add({
+              title: "New Service Added: " + serviceName,
+              message: "New " + serviceName + " service is now available in New Order at competitive rates.",
+              type: "service",
+              serviceId: finalServiceId,
+              serviceName: serviceName,
+              category: category,
+              package: servicePackage,
+              active: true,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+          } catch (newsErr) {
+            console.error("NEWS CREATE ERROR:", newsErr ? newsErr.code : "UNKNOWN", newsErr ? newsErr.message : newsErr);
+          }
+        }
+
+        resetServiceForm();
+      } catch (err) {
+        if (editId) {
+          console.error("SERVICE UPDATE ERROR:", err ? err.code : "UNKNOWN", err ? err.message : err);
+        } else {
+          console.error("SERVICE CREATE ERROR:", err ? err.code : "UNKNOWN", err ? err.message : err);
+        }
+        showToast(err.message || "Error saving service.", "error");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = prevHtml;
+        }
+      }
+    };
+
+    window.resetServiceForm = function() {
+      const editIdEl = document.getElementById("adm-service-edit-id");
+      const titleEl = document.getElementById("adm-service-form-title");
+      const cancelBtn = document.getElementById("btn-cancel-edit-service");
+      const form = document.getElementById("form-adm-add-service");
+
+      if (editIdEl) editIdEl.value = "";
+      if (titleEl) titleEl.innerHTML = "<i class='fa-solid fa-circle-plus'></i> Add New Service";
+      if (cancelBtn) cancelBtn.classList.add("hidden");
+      if (form) form.reset();
+
+      const r1000 = document.getElementById("adm-rate-unit-1000");
+      if (r1000) r1000.checked = true;
+
+      handleAdminCategoryChange();
+    };
+
+    window.editService = function(serviceId) {
+      if (!isAdmin) return showToast("Unauthorized action.", "error");
+      const s = activeServices.find(item => String(item.id) === String(serviceId));
+      if (!s) return showToast("Service not found.", "error");
+
+      const editIdEl = document.getElementById("adm-service-edit-id");
+      const titleEl = document.getElementById("adm-service-form-title");
+      const cancelBtn = document.getElementById("btn-cancel-edit-service");
+      const catSelect = document.getElementById("adm-service-category-select");
+      const customCatEl = document.getElementById("adm-service-custom-category");
+      const pkgSelect = document.getElementById("adm-service-package-select");
+      const customPkgEl = document.getElementById("adm-service-custom-package");
+      const nameEl = document.getElementById("adm-service-name");
+      const descEl = document.getElementById("adm-service-desc");
+      const rateEl = document.getElementById("adm-service-rate");
+      const minEl = document.getElementById("adm-service-min");
+      const maxEl = document.getElementById("adm-service-max");
+      const activeEl = document.getElementById("adm-service-active");
+
+      if (editIdEl) editIdEl.value = s.id;
+      if (titleEl) titleEl.innerHTML = "<i class='fa-solid fa-pen-to-square'></i> Edit Service: " + s.name;
+      if (cancelBtn) cancelBtn.classList.remove("hidden");
+
+      const isPresetCat = ["Instagram", "Facebook", "YouTube"].includes(s.category);
+      if (isPresetCat && catSelect) {
+        catSelect.value = s.category;
+        handleAdminCategoryChange();
+      } else if (catSelect) {
+        catSelect.value = "Custom Category";
+        handleAdminCategoryChange();
+        if (customCatEl) customCatEl.value = s.category;
+      }
+
+      const isPresetPkg = ["Followers", "Likes", "Views", "Comments", "Subscribers"].includes(s.package);
+      if (isPresetPkg && pkgSelect && pkgSelect.querySelector("option[value='" + s.package + "']")) {
+        pkgSelect.value = s.package;
+        handleAdminPackageChange();
+      } else if (pkgSelect) {
+        pkgSelect.value = "Custom Package";
+        handleAdminPackageChange();
+        if (customPkgEl) customPkgEl.value = s.package;
+      }
+
+      if (nameEl) nameEl.value = s.name;
+      if (descEl) descEl.value = s.desc || s.description || "";
+      if (rateEl) rateEl.value = Number(s.price != null ? s.price : (s.pricePerK || 0));
+      if (minEl) minEl.value = s.min;
+      if (maxEl) maxEl.value = s.max;
+      if (activeEl) activeEl.value = (s.active !== false && s.enabled !== false) ? "true" : "false";
+
+      const r100 = document.getElementById("adm-rate-unit-100");
+      const r1000 = document.getElementById("adm-rate-unit-1000");
+      if (s.rateUnit === "per100") {
+        if (r100) r100.checked = true;
+      } else {
+        if (r1000) r1000.checked = true;
+      }
+
+      switchAdminPage("adm-page-add-service");
+      const form = document.getElementById("form-adm-add-service");
+      if (form) form.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    window.toggleServiceStatus = async function(serviceId, newActiveState) {
+      if (!isAdmin || !db) return showToast("Unauthorized action.", "error");
+      try {
+        await db.collection("services").doc(serviceId).set({
+          active: newActiveState,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+        showToast("Service status updated to " + (newActiveState ? "Active" : "Inactive"), "success");
+      } catch (err) {
+        console.error("SERVICE UPDATE ERROR:", err ? err.code : "UNKNOWN", err ? err.message : err);
+        showToast(err.message || "Error updating service status.", "error");
+      }
+    };
+
+    function renderAdminServicesTable() {
+      const tbodyManage = document.getElementById("adm-manage-services-tbody");
+      const tbodyOverview = document.getElementById("adm-all-services-overview-tbody");
+
+      if (tbodyManage) {
+        tbodyManage.innerHTML = "";
+        if (!activeServices.length) {
+          tbodyManage.innerHTML = "<tr><td colspan='10' style='text-align:center;'>No services found.</td></tr>";
+        } else {
+          activeServices.forEach(s => {
+            const isActive = (s.active !== false && s.enabled !== false);
+            const statusHtml = isActive ? "<span style='color:#10b981; font-weight:700;'>Active</span>" : "<span style='color:#ef4444; font-weight:700;'>Inactive</span>";
+            const toggleBtn = isActive ?
+              "<button onclick=\"toggleServiceStatus('" + s.id + "', false)\" class='btn' style='padding:4px 8px; font-size:11px; background:#ef4444; color:#fff;'>Disable</button>" :
+              "<button onclick=\"toggleServiceStatus('" + s.id + "', true)\" class='btn' style='padding:4px 8px; font-size:11px; background:#10b981; color:#fff;'>Enable</button>";
+
+            const row = document.createElement("tr");
+            const unitLabel = s.rateUnit === "per100" ? "Per 100" : "Per 1000";
+            row.innerHTML = "<td><strong>" + s.id + "</strong></td>" +
+                            "<td>" + s.name + "</td>" +
+                            "<td>" + (s.category || "Instagram") + "</td>" +
+                            "<td>" + (s.package || "--") + "</td>" +
+                            "<td>₹" + Number(s.price || s.pricePerK || 0).toFixed(2) + "</td>" +
+                            "<td>" + unitLabel + "</td>" +
+                            "<td>" + s.min + "</td>" +
+                            "<td>" + s.max + "</td>" +
+                            "<td>" + statusHtml + "</td>" +
+                            "<td>" +
+                              "<button onclick=\"editService('" + s.id + "')\" class='btn' style='padding:4px 8px; font-size:11px; background:#2563eb; color:#fff; margin-right:4px;'>Edit</button>" +
+                              toggleBtn +
+                            "</td>";
+            tbodyManage.appendChild(row);
+          });
+        }
+      }
+
+      if (tbodyOverview) {
+        tbodyOverview.innerHTML = "";
+        if (!activeServices.length) {
+          tbodyOverview.innerHTML = "<tr><td colspan='9' style='text-align:center;'>No services found.</td></tr>";
+        } else {
+          activeServices.forEach(s => {
+            const isActive = (s.active !== false && s.enabled !== false);
+            const statusHtml = isActive ? "<span style='color:#10b981; font-weight:700;'>Active</span>" : "<span style='color:#ef4444; font-weight:700;'>Inactive</span>";
+            const unitLabel = s.rateUnit === "per100" ? "Per 100" : "Per 1000";
+            const row = document.createElement("tr");
+            row.innerHTML = "<td><strong>" + s.id + "</strong></td>" +
+                            "<td>" + s.name + "</td>" +
+                            "<td>" + (s.category || "Instagram") + "</td>" +
+                            "<td>" + (s.package || "--") + "</td>" +
+                            "<td>₹" + Number(s.price || s.pricePerK || 0).toFixed(2) + " (" + unitLabel + ")</td>" +
+                            "<td>" + s.min + "</td>" +
+                            "<td>" + s.max + "</td>" +
+                            "<td>" + (s.desc || "--") + "</td>" +
+                            "<td>" + statusHtml + "</td>";
+            tbodyOverview.appendChild(row);
+          });
+        }
+      }
+    }
+
+    /* ========================================================
+       DEDICATED ADMIN REALTIME PANEL ENGINE
+    ======================================================== */
+    function initAdminPanel() {
+      if (!db || !isAdmin) return;
+
+      // 1. Live Users
+      if (adminUsersUnsub) adminUsersUnsub();
+      adminUsersUnsub = db.collection("users").orderBy("createdAt", "desc").onSnapshot(function(snapshot) {
+        const totalEl = document.getElementById("adm-stat-users");
+        if (totalEl) totalEl.innerText = snapshot.size;
+
+        const tbody = document.getElementById("adm-users-table-body");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+
+        if (snapshot.empty) {
+          tbody.innerHTML = "<tr><td colspan='7' style='text-align:center;'>No users found.</td></tr>";
+          return;
+        }
+
+        snapshot.forEach(function(doc) {
+          const u = doc.data();
+          const dateStr = u.createdAt ? (u.createdAt.toDate ? new Date(u.createdAt.toDate()).toLocaleDateString() : new Date(u.createdAt).toLocaleDateString()) : "--";
+          const isBlocked = (u.status === "blocked" || u.status === "deactivated");
+          const statusText = isBlocked ? "<span style='color:#ef4444; font-weight:700;'>Blocked</span>" : "<span style='color:#10b981; font-weight:700;'>Active</span>";
+          const actionBtn = isBlocked ? 
+            "<button onclick=\"toggleUserStatus('" + doc.id + "', 'active')\" class='btn' style='padding:4px 8px; font-size:11px; background:#10b981; color:#fff;'>Activate</button>" :
+            "<button onclick=\"toggleUserStatus('" + doc.id + "', 'blocked')\" class='btn' style='padding:4px 8px; font-size:11px; background:#ef4444; color:#fff;'>Block</button>";
+
+          const row = document.createElement("tr");
+          row.innerHTML = "<td><strong>" + (u.name || "User") + "</strong></td>" +
+                          "<td>" + (u.email || "--") + "</td>" +
+                          "<td>₹" + Number(u.balance || 0).toFixed(2) + "</td>" +
+                          "<td>₹" + Number(u.totalSpent || 0).toFixed(2) + "</td>" +
+                          "<td>" + statusText + "</td>" +
+                          "<td>" + dateStr + "</td>" +
+                          "<td>" + actionBtn + "</td>";
+          tbody.appendChild(row);
+        });
+      }, function(err) {
+        console.error("Admin users listener error:", err.code, err.message);
+      });
+
+      // 2. Live Orders
+      if (adminOrdersUnsub) {
+        adminOrdersUnsub();
+      }
+
+      adminOrdersUnsub = db.collection("orders").onSnapshot(function(snapshot) {
+        const totalEl = document.getElementById("adm-stat-orders");
+        const pendingEl = document.getElementById("adm-stat-pending-orders");
+        const revEl = document.getElementById("adm-stat-rev");
+
+        if (totalEl) totalEl.innerText = snapshot.size;
+
+        let totalRev = 0;
+        let pendingOrdersCount = 0;
+        cachedAdminOrders = [];
+
+        snapshot.forEach(doc => {
+          const d = doc.data();
+          d.id = doc.id;
+          totalRev += Number(d.charge != null ? d.charge : (d.price || 0));
+          const stLower = (d.status || "pending").toLowerCase();
+          if (stLower === "pending" || stLower === "processing" || stLower === "in progress") {
+            pendingOrdersCount++;
+          }
+          cachedAdminOrders.push(d);
+        });
+
+        cachedAdminOrders.sort((a, b) => {
+          const tA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt).getTime()) : Date.now();
+          const tB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt).getTime()) : Date.now();
+          return tB - tA;
+        });
+
+        const tbody = document.getElementById("adm-orders-table-body");
+        if (tbody) {
+          tbody.innerHTML = "";
+          if (cachedAdminOrders.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='10' style='text-align:center;'>No orders recorded yet.</td></tr>";
+          } else {
+            cachedAdminOrders.forEach(function(d) {
+              const dateStr = d.createdAt ? (d.createdAt.toDate ? new Date(d.createdAt.toDate()).toLocaleDateString() : new Date(d.createdAt).toLocaleDateString()) : "--";
+              const currentSt = d.status || "pending";
+              const refundBadge = d.refundProcessed ? " <span style='font-size:10px; color:#10b981; font-weight:700;'>(REFUNDED)</span>" : "";
+              const row = document.createElement("tr");
+              row.innerHTML = "<td>#" + d.id.substring(0, 6) + "</td>" +
+                              "<td>" + (d.userEmail || "--") + "</td>" +
+                              "<td><code>" + (d.userId ? d.userId.substring(0, 8) : "--") + "</code></td>" +
+                              "<td>" + (d.serviceName || d.serviceId) + "</td>" +
+                              "<td><a href='" + d.link + "' target='_blank' style='color:#60a5fa; text-decoration:underline;'>Target Link</a></td>" +
+                              "<td>" + d.quantity + "</td>" +
+                              "<td>₹" + Number(d.charge != null ? d.charge : (d.price || 0)).toFixed(2) + "</td>" +
+                              "<td><strong>" + currentSt.toUpperCase() + "</strong>" + refundBadge + "</td>" +
+                              "<td>" + dateStr + "</td>" +
+                              "<td>" +
+                                "<select onchange=\"changeOrderStatus('" + d.id + "', this.value)\" style='font-size:12px; padding:4px; border-radius:4px; background:#1e293b; color:#fff; border:1px solid #334155;'>" +
+                                  "<option value=''>Change</option>" +
+                                  "<option value='pending'" + (currentSt.toLowerCase() === 'pending' ? ' selected' : '') + ">pending</option>" +
+                                  "<option value='Processing'" + (currentSt.toLowerCase() === 'processing' ? ' selected' : '') + ">Processing</option>" +
+                                  "<option value='Completed'" + (currentSt.toLowerCase() === 'completed' || currentSt.toLowerCase() === 'complete' ? ' selected' : '') + ">Completed</option>" +
+                                  "<option value='Cancelled'" + (currentSt.toLowerCase() === 'cancelled' || currentSt.toLowerCase() === 'cancel' ? ' selected' : '') + ">Cancelled</option>" +
+                                "</select>" +
+                              "</td>";
+              tbody.appendChild(row);
+            });
+          }
+        }
+
+        if (revEl) revEl.innerText = totalRev.toFixed(0);
+        if (pendingEl) pendingEl.innerText = pendingOrdersCount;
+
+        renderAdminAlerts();
+      }, function(err) {
+        console.error("Admin orders listener error:", err.code, err.message);
+        const tbody = document.getElementById("adm-orders-table-body");
+        if (tbody) {
+          tbody.innerHTML = "<tr><td colspan='10' style='text-align:center; color:#ef4444;'>Unable to load orders. Check Firestore permissions.</td></tr>";
+        }
+      });
+
+      // 3. Live Deposits
+      if (adminDepositsUnsub) {
+        adminDepositsUnsub();
+      }
+
+      adminDepositsUnsub = db.collection("depositRequests").onSnapshot(function(snapshot) {
+        cachedAdminDeposits = [];
+        let totalDepAmount = 0;
+        let pendingCount = 0;
+
+        snapshot.forEach(function(doc) {
+          const d = doc.data();
+          d.id = doc.id;
+          cachedAdminDeposits.push(d);
+          if (d.status === "approved") totalDepAmount += Number(d.amount || 0);
+          if (d.status === "pending") pendingCount++;
+        });
+
+        cachedAdminDeposits.sort((a, b) => {
+          const tA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt).getTime()) : Date.now();
+          const tB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt).getTime()) : Date.now();
+          return tB - tA;
+        });
+
+        const elTotDep = document.getElementById("adm-stat-deposits-total");
+        const elPenDep = document.getElementById("adm-stat-pending-deposits");
+        if (elTotDep) elTotDep.innerText = totalDepAmount.toFixed(0);
+        if (elPenDep) elPenDep.innerText = pendingCount;
+
+        renderAdminDepositsTable();
+        renderAdminAlerts();
+      }, function(err) {
+        console.error("Admin deposits listener error:", err.code, err.message);
+        const tbody = document.getElementById("adm-deposits-table-body");
+        if (tbody) {
+          tbody.innerHTML = "<tr><td colspan='8' style='text-align:center; color:#ef4444;'>Unable to load payment requests. Check Firestore permissions.</td></tr>";
+        }
+      });
+
+      // 4. Live Transactions
+      if (adminTxUnsub) adminTxUnsub();
+      adminTxUnsub = db.collection("fundTransactions").onSnapshot(function(snapshot) {
+        const tbody = document.getElementById("adm-transactions-table-body");
+        if (!tbody) return;
+        tbody.innerHTML = "";
+
+        if (snapshot.empty) {
+          tbody.innerHTML = "<tr><td colspan='7' style='text-align:center;'>No transactions recorded yet.</td></tr>";
+          return;
+        }
+
+        const docs = [];
+        snapshot.forEach(doc => docs.push({ id: doc.id, ...doc.data() }));
+        docs.sort((a, b) => {
+          const tA = a.createdAt ? (a.createdAt.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt).getTime()) : Date.now();
+          const tB = b.createdAt ? (b.createdAt.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt).getTime()) : Date.now();
+          return tB - tA;
+        });
+
+        docs.forEach(function(t) {
+          const dateStr = t.createdAt ? (t.createdAt.toDate ? new Date(t.createdAt.toDate()).toLocaleDateString() : new Date(t.createdAt).toLocaleDateString()) : "--";
+          const isDeposit = (t.type || "deposit") === "deposit";
+          const typeColor = isDeposit ? "#60a5fa" : "#34d399";
+          const row = document.createElement("tr");
+          row.innerHTML = "<td>#" + t.id.substring(0, 8) + "</td>" +
+                          "<td>" + (t.userEmail || t.userId || "--") + "</td>" +
+                          "<td><strong style='color:" + typeColor + ";'>" + (t.type || "deposit").toUpperCase() + "</strong></td>" +
+                          "<td>₹" + Number(t.amount || 0).toFixed(2) + "</td>" +
+                          "<td><span style='color:#10b981; font-weight:700;'>" + (t.status || "approved").toUpperCase() + "</span></td>" +
+                          "<td><code>" + (t.utr || t.reference || "--") + "</code></td>" +
+                          "<td>" + dateStr + "</td>";
+          tbody.appendChild(row);
+        });
+      }, function(err) {
+        console.error("Admin transactions listener error:", err.code, err.message);
+      });
+
+      renderAdminServicesTable();
+      listenToPaymentSettings();
+    }
+
+    function renderAdminAlerts() {
+      const container = document.getElementById("adm-alerts-list");
+      if (!container) return;
+
+      const pendingDeposits = cachedAdminDeposits.filter(d => d.status === "pending");
+      const pendingOrders = cachedAdminOrders.filter(o => (o.status || "").toLowerCase() === "pending");
+      let html = "";
+
+      if (pendingDeposits.length === 0 && pendingOrders.length === 0) {
+        html = "<div style='color:#94a3b8; font-size:13px; text-align:center; padding:12px;'>No pending alerts.</div>";
+      } else {
+        pendingDeposits.slice(0, 3).forEach(d => {
+          html += "<div class='admin-alert-box'>" +
+                    "<div>" +
+                      "<div style='font-size:13.5px; font-weight:700; color:#fbbf24;'>" +
+                        "<i class='fa-solid fa-coins'></i> 💰 NEW PAYMENT REQUEST &#8212; ₹" + d.amount +
+                      "</div>" +
+                      "<div style='font-size:12px; color:#cbd5e1; margin-top:2px;'>" +
+                        "User: <strong>" + (d.userEmail || d.userId) + "</strong> | UTR: <code>" + (d.utr || d.transactionId || d.id) + "</code> | Status: <strong>PENDING</strong>" +
+                      "</div>" +
+                    "</div>" +
+                    "<button onclick=\"switchAdminPage('adm-page-deposits')\" class='btn' style='padding:6px 12px; font-size:12px; background:#ef4444; color:#fff;'>REVIEW PAYMENT</button>" +
+                  "</div>";
+        });
+
+        pendingOrders.slice(0, 3).forEach(o => {
+          html += "<div class='admin-alert-box' style='border-left: 3px solid #3b82f6;'>" +
+                    "<div>" +
+                      "<div style='font-size:13.5px; font-weight:700; color:#60a5fa;'>" +
+                        "<i class='fa-solid fa-cart-plus'></i> 📦 NEW ORDER RECEIVED &#8212; ₹" + (o.charge != null ? o.charge : (o.price || 0)) +
+                      "</div>" +
+                      "<div style='font-size:12px; color:#cbd5e1; margin-top:2px;'>" +
+                        "User: <strong>" + (o.userEmail || o.userId) + "</strong> | Service: " + (o.serviceName || o.serviceId) + " | Qty: " + o.quantity +
+                      "</div>" +
+                    "</div>" +
+                    "<button onclick=\"switchAdminPage('adm-page-orders')\" class='btn' style='padding:6px 12px; font-size:12px; background:#2563eb; color:#fff;'>VIEW ORDER</button>" +
+                  "</div>";
+        });
+      }
+      container.innerHTML = html;
+    }
+
+    window.filterAdminDeposits = function(status, btnEl) {
+      currentDepositFilter = status;
+      const btns = document.querySelectorAll(".filter-tab-group .filter-tab-btn");
+      btns.forEach(b => b.classList.remove("active"));
+      if (btnEl) btnEl.classList.add("active");
+      renderAdminDepositsTable();
+    };
+
+    function renderAdminDepositsTable() {
+      const tbody = document.getElementById("adm-deposits-table-body");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+
+      let filtered = cachedAdminDeposits;
+      if (currentDepositFilter !== "all") {
+        filtered = cachedAdminDeposits.filter(d => d.status === currentDepositFilter);
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = "<tr><td colspan='8' style='text-align:center;'>No deposits found for status: " + currentDepositFilter + "</td></tr>";
+        return;
+      }
+
+      filtered.forEach(function(d) {
+        const dateStr = d.createdAt ? (d.createdAt.toDate ? new Date(d.createdAt.toDate()).toLocaleDateString() : new Date(d.createdAt).toLocaleDateString()) : "--";
+        let statusBadge = "<span style='color:#fbbf24; font-weight:700;'>🟡 PENDING</span>";
+        if (d.status === "approved") statusBadge = "<span style='color:#10b981; font-weight:700;'>🟢 APPROVED</span>";
+        if (d.status === "rejected") statusBadge = "<span style='color:#ef4444; font-weight:700;'>🔴 REJECTED</span>";
+
+        const actionHtml = d.status === "pending" ?
+          ("<button onclick=\"reviewDeposit('" + d.id + "', 'approve')\" class='btn' style='padding:4px 8px; font-size:11px; background:#10b981; color:#fff; margin-right:4px;'>APPROVE</button>" +
+           "<button onclick=\"reviewDeposit('" + d.id + "', 'reject')\" class='btn' style='padding:4px 8px; font-size:11px; background:#ef4444; color:#fff;'>REJECT</button>") :
+          ("<span style='font-size:12px; color:#94a3b8;'>Reviewed</span>");
+
+        const row = document.createElement("tr");
+        row.innerHTML = "<td>#" + d.id.substring(0, 14) + "</td>" +
+                        "<td>" + (d.userEmail || d.userId) + "</td>" +
+                        "<td>₹" + Number(d.amount || 0).toFixed(2) + "</td>" +
+                        "<td><code>" + (d.utr || d.transactionId || d.id) + "</code></td>" +
+                        "<td>" + (d.paymentMethod || "UPI QR") + "</td>" +
+                        "<td>" + statusBadge + "</td>" +
+                        "<td>" + dateStr + "</td>" +
+                        "<td>" + actionHtml + "</td>";
+        tbody.appendChild(row);
+      });
+    }
+
+    window.toggleUserStatus = async function(uid, newStatus) {
+      if (!isAdmin) return showToast("Unauthorized action.", "error");
+      try {
+        await db.collection("users").doc(uid).update({
+          status: newStatus,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        showToast("User status updated to " + newStatus, "success");
+      } catch (err) {
+        showToast(err.message, "error");
+      }
+    };
+
+    /* ========================================================
+       SINGLE DEFINITIVE ORDER STATUS + ATOMIC CANCELLATION REFUND
+    ======================================================== */
+    window.changeOrderStatus = async function(orderId, newStatus) {
+      if (!newStatus || !db || !isAdmin) return;
+
+      try {
+        const orderRef = db.collection("orders").doc(orderId);
+        const isCancellation = (newStatus.toLowerCase() === "cancelled" || newStatus.toLowerCase() === "cancel");
+
+        if (isCancellation) {
+          // Pre-fetch order data to evaluate completed state & refund safety
+          const preSnap = await orderRef.get();
+          if (!preSnap.exists) {
+            showToast("Order document not found.", "error");
+            return;
+          }
+
+          const preData = preSnap.data();
+          if (preData.refundProcessed === true) {
+            showToast("This order has already been refunded.", "error");
+            return;
+          }
+
+          const currentStLower = (preData.status || "").toLowerCase();
+          if (currentStLower === "completed" || currentStLower === "complete") {
+            const confirmed = confirm("Warning: This order is already marked as COMPLETED. Are you sure you want to cancel and refund it to the customer's wallet?");
+            if (!confirmed) return;
+          } else {
+            const confirmed = confirm("Are you sure you want to cancel this order and refund the charge to the customer's wallet?");
+            if (!confirmed) return;
+          }
+
+          let executedRefundAmount = 0;
+
+          // Perform atomic order cancellation and wallet refund transaction
+          await db.runTransaction(async (transaction) => {
+            const oDoc = await transaction.get(orderRef);
+            if (!oDoc.exists) throw new Error("Order not found.");
+
+            const oData = oDoc.data();
+            if (oData.refundProcessed === true) {
+              throw new Error("This order has already been refunded.");
+            }
+
+            const customerId = oData.userId;
+            if (!customerId) throw new Error("Order has no customer userId attached.");
+
+            const refundVal = Number(oData.charge != null ? oData.charge : (oData.price != null ? oData.price : 0));
+            if (!Number.isFinite(refundVal) || refundVal < 0) {
+              throw new Error("Invalid refund amount associated with this order.");
+            }
+
+            const userRef = db.collection("users").doc(customerId);
+            const uDoc = await transaction.get(userRef);
+            if (!uDoc.exists) throw new Error("Customer user document not found.");
+
+            const uData = uDoc.data();
+            const curBalance = Number(uData.balance || 0);
+            const curTotalSpent = Number(uData.totalSpent || 0);
+
+            const newBalance = Number((curBalance + refundVal).toFixed(2));
+            const newTotalSpent = Number(Math.max(0, curTotalSpent - refundVal).toFixed(2));
+
+            // 1. Credit wallet & safely reduce totalSpent
+            transaction.update(userRef, {
+              balance: newBalance,
+              totalSpent: newTotalSpent,
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            const currentAdminEmail = (currentUser && currentUser.email) ? currentUser.email : "Admin";
+
+            // 2. Update order with complete cancellation refund audit trail
+            transaction.update(orderRef, {
+              status: "Cancelled",
+              refundProcessed: true,
+              refundedAmount: refundVal,
+              refundedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              refundedBy: currentAdminEmail,
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            // 3. Optional audit log entry in fundTransactions
+            const txRef = db.collection("fundTransactions").doc();
+            transaction.set(txRef, {
+              transactionId: txRef.id,
+              orderId: orderId,
+              userId: customerId,
+              userEmail: oData.userEmail || "",
+              amount: refundVal,
+              type: "refund",
+              status: "approved",
+              reference: "REFUND-ORDER-" + orderId.substring(0, 8),
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            executedRefundAmount = refundVal;
+          });
+
+          showToast("Order cancelled. ₹" + executedRefundAmount.toFixed(2) + " refunded to customer wallet.", "success");
+        } else {
+          // Standard status updates without refund (pending, Processing, Completed)
+          await orderRef.update({
+            status: newStatus,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          showToast("Order status updated to: " + newStatus, "success");
+        }
+      } catch (err) {
+        console.error("CANCEL / REFUND ERROR:", err);
+        showToast(err.message || "Error updating order status.", "error");
+      }
+    };
+
+    /* ========================================================
+       ATOMIC ADMIN APPROVE / REJECT DEPOSIT ENGINE
+    ======================================================== */
+    window.reviewDeposit = async function(requestId, action) {
+      if (!isAdmin || !db) return showToast("Unauthorized action.", "error");
+      if (!confirm("Are you sure you want to " + action.toUpperCase() + " this deposit?")) return;
+
+      try {
+        const depRef = db.collection("depositRequests").doc(requestId);
+        
+        await db.runTransaction(async (transaction) => {
+          const depDoc = await transaction.get(depRef);
+          if (!depDoc.exists) throw new Error("Deposit request not found.");
+          
+          const depData = depDoc.data();
+          if (depData.status !== "pending") {
+            throw new Error("Deposit already processed.");
+          }
+
+          const reviewer = (currentUser && currentUser.email) ? currentUser.email : "Admin";
+
+          if (action === "reject") {
+            transaction.update(depRef, {
+              status: "rejected",
+              reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              reviewedBy: reviewer
+            });
+            return;
+          }
+
+          // Approve Flow: Credit wallet atomically
+          const userRef = db.collection("users").doc(depData.userId);
+          const userDoc = await transaction.get(userRef);
+          if (!userDoc.exists) throw new Error("Associated user account not found.");
+
+          const curBal = Number(userDoc.data().balance || 0);
+          const depositAmt = Number(depData.amount || 0);
+          const newBal = Number((curBal + depositAmt).toFixed(2));
+
+          transaction.update(userRef, { 
+            balance: newBal,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+
+          transaction.update(depRef, {
+            status: "approved",
+            reviewedAt: firebase.firestore.FieldValue.serverTimestamp(),
+            reviewedBy: reviewer
+          });
+
+          const txRef = db.collection("fundTransactions").doc();
+          transaction.set(txRef, {
+            transactionId: txRef.id,
+            requestId: requestId,
+            userId: depData.userId,
+            userEmail: depData.userEmail || "",
+            amount: depositAmt,
+            utr: depData.utr || depData.transactionId || requestId,
+            type: "deposit",
+            status: "approved",
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        });
+
+        showToast("Deposit marked as " + action + "d successfully!", "success");
+      } catch (err) {
+        console.error("DEPOSIT REVIEW ERROR:", err);
+        showToast(err.message || "Error processing deposit.", "error");
+      }
+    };
+
+    const btnAdmSaveSettings = document.getElementById("btn-adm-save-settings");
+    if (btnAdmSaveSettings) {
+      btnAdmSaveSettings.addEventListener("click", async function() {
+        if (!db || !isAdmin) return showToast("Unauthorized action.", "error");
+        const upi = document.getElementById("adm-settings-upi").value.trim();
+        const qr = document.getElementById("adm-settings-qr").value.trim();
+        try {
+          await db.collection("paymentSettings").doc("config").set({
+            upiId: upi,
+            qrUrl: qr,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          }, { merge: true });
+          showToast("Payment settings saved successfully!", "success");
+        } catch (err) {
+          showToast(err.message, "error");
+        }
+      });
+    }
+
+    // Attach Listeners on DOM load
+    window.addEventListener("DOMContentLoaded", function() {
+      initFirebase();
+      attachAuthObserver();
+
+      const btnLogout = document.getElementById("btn-logout");
+      if (btnLogout) {
+        btnLogout.addEventListener("click", function() {
+          if (auth) auth.signOut();
+        });
+      }
+
+      const btnAdminLogout = document.getElementById("btn-admin-logout");
+      if (btnAdminLogout) {
+        btnAdminLogout.addEventListener("click", function() {
+          if (auth) auth.signOut();
+        });
+      }
+      const btnAdminTopLogout = document.getElementById("btn-admin-topbar-logout");
+      if (btnAdminTopLogout) {
+        btnAdminTopLogout.addEventListener("click", function() {
+          if (auth) auth.signOut();
+        });
+      }
+
+      const menuToggle = document.getElementById("menu-toggle-btn");
+      if (menuToggle) {
+        menuToggle.addEventListener("click", function() {
+          const sb = document.getElementById("sidebar");
+          if (sb) sb.classList.toggle("open");
+        });
+      }
+      const adminMenuToggle = document.getElementById("admin-menu-toggle");
+      if (adminMenuToggle) {
+        adminMenuToggle.addEventListener("click", function() {
+          const sb = document.getElementById("admin-sidebar");
+          if (sb) sb.classList.toggle("open");
+        });
+      }
+
+      const catSelect = document.getElementById("order-category-select");
+      if (catSelect) catSelect.addEventListener("change", populateServices);
+
+      const orderSvc = document.getElementById("order-service-select");
+      if (orderSvc) orderSvc.addEventListener("change", updateOrderPricing);
+
+      const orderQty = document.getElementById("order-quantity");
+      if (orderQty) orderQty.addEventListener("input", updateOrderPricing);
+
+      const navLinks = document.querySelectorAll(".sidebar-link[data-page]");
+      for (let i = 0; i < navLinks.length; i++) {
+        navLinks[i].addEventListener("click", function() {
+          switchDashboardPage(this.getAttribute("data-page"));
+        });
+      }
+
+      const admNavLinks = document.querySelectorAll(".admin-sidebar-link[data-adm-page]");
+      for (let i = 0; i < admNavLinks.length; i++) {
+        admNavLinks[i].addEventListener("click", function() {
+          switchAdminPage(this.getAttribute("data-adm-page"));
+        });
+      }
+
+      const btnGen = document.getElementById("btn-gen-key");
+      if (btnGen) {
+        btnGen.addEventListener("click", async function() {
+          if (!currentUser || !db) return;
+          const randomKey = "rr_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
+          await db.collection("users").doc(currentUser.uid).update({ apiKey: randomKey });
+          showToast("Generated new API Key!", "success");
+        });
+      }
+
+      handleAdminCategoryChange();
+      populateServices();
+    });
+  //]]>
+  </script>
+</body>
+</html>
